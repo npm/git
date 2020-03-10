@@ -119,6 +119,15 @@ It does this by looking for a file in `${path}/.git/index`, which is not an
 airtight indicator, but at least avoids being fooled by an empty directory
 or a file named `.git`.
 
+### `git.find(path)` -> `Promise<String | null>`
+
+Given a path, walk up the file system tree until a git repo working
+directory is found.  Since this calls `stat` a bunch of times, it's
+probably best to only call it if you're reasonably sure you're likely to be
+in a git project somewhere.
+
+Resolves to `null` if not in a git project.
+
 ## OPTIONS
 
 - `retry` An object to configure retry behavior for transient network
