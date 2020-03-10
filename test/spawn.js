@@ -19,7 +19,7 @@ t.test('setup repo', t => {
   t.teardown(() => process.chdir(cwd))
   process.chdir(repo)
   return t.resolveMatch(spawn(['init']),
-    `Initialized empty Git repository in ${repo}`)
+    { stdout: `Initialized empty Git repository in ${repo}` })
 })
 
 t.test('retries', t => {

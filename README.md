@@ -9,16 +9,17 @@ stuff.
 ## USAGE
 
 ```js
-git.clone(['git://foo/bar.git']) // clone a repo
+const git = require('@npmcli/git')
+git.clone('git://foo/bar.git', 'some-branch', 'some-path', opts) // clone a repo
   .then(() => git.spawn(['checkout', 'some-branch'], {cwd: 'bar'}))
   .then(() => git.spawn(['you get the idea']))
 ```
 
 ## API
 
-All methods take an options object.  Options are described below.
+Most methods take an options object.  Options are described below.
 
-### `git.spawn(args, opts = {})` -> Promise
+### `git.spawn(args, opts = {})`
 
 Launch a `git` subprocess with the arguments specified.
 
@@ -29,10 +30,18 @@ Processes are launched using
 `stdioString: true` option enabled by default, since git output is
 generally in readable string format.
 
-### `git.clone(repo, ref = 'HEAD', target = null, opts = {})`
+Return value is a `Promise` that resolves to a result object with `{cmd,
+args, code, signal, stdout, stderr}` members, or rejects with an error with
+the same fields, passed back from
+[`@npmcli/promise-spawn`](http://npm.im/@npmcli/promise-spawn).
+
+### `git.clone(repo, ref = 'HEAD', target = null, opts = {})` -> `Promise<sha String>`
 
 Clone the repository into `target` path (or the default path for the name
 of the repository), checking out `ref`.
+
+Return value is the sha of the current HEAD in the locally cloned
+repository.
 
 In lieu of a specific `ref`, you may also pass in a `spec` option, which is
 a [`npm-package-arg`](http://npm.im/npm-package-arg) object for a `git`
@@ -55,7 +64,7 @@ This will automatically do a shallow `--depth=1` clone on any hosts that
 are known to support it.  To force a shallow or deep clone, you can set the
 `gitShallow` option to `true` or `false` respectively.
 
-### `git.revs(repo, opts = {})`
+### `git.revs(repo, opts = {})` -> `Promise<rev doc Object>`
 
 Fetch a representation of all of the named references in a given
 repository.  The resulting doc is intentionally somewhat

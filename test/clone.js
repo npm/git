@@ -59,7 +59,8 @@ t.test('create repo', { bail: true }, t => {
   .then(() => git('add', 'gleep'))
   .then(() => git('commit', '-m', 'gleep glorp'))
   .then(() => git('tag', '-am', 'head version', '69.42.0'))
-  .then(() => git('rev-parse', 'HEAD^').then(sha => repoSha = sha))
+  .then(() => git('rev-parse', 'HEAD^')
+  .then(({stdout}) => repoSha = stdout.trim()))
 })
 
 t.test('spawn daemon', { bail: true }, t => {
@@ -131,7 +132,8 @@ t.test('create a repo with a submodule', { bail: true }, t => {
     .then(() => git('add', 'gleep'))
     .then(() => git('commit', '-m', 'gleep glorp'))
     .then(() => git('tag', '-am', 'head version', '69.42.0'))
-    .then(() => git('rev-parse', 'HEAD^').then(sha => submodsRepoSha = sha))
+    .then(() => git('rev-parse', 'HEAD^')
+    .then(({stdout}) => submodsRepoSha = stdout.trim()))
 })
 
 const windowsPlatform = process.platform === 'win32' ? null : 'win32'
