@@ -110,7 +110,7 @@ revs = {
 }
 ```
 
-### `git.is(path)` -> `Promise<Boolean>`
+### `git.is(opts)` -> `Promise<Boolean>`
 
 Resolve to `true` if the path argument refers to the root of a git
 repository.
@@ -119,7 +119,7 @@ It does this by looking for a file in `${path}/.git/index`, which is not an
 airtight indicator, but at least avoids being fooled by an empty directory
 or a file named `.git`.
 
-### `git.find(path)` -> `Promise<String | null>`
+### `git.find(opts)` -> `Promise<String | null>`
 
 Given a path, walk up the file system tree until a git repo working
 directory is found.  Since this calls `stat` a bunch of times, it's
@@ -128,7 +128,7 @@ in a git project somewhere.
 
 Resolves to `null` if not in a git project.
 
-### `git.isClean(path, opts = {})` -> `Promise<Boolean>`
+### `git.isClean(opts = {})` -> `Promise<Boolean>`
 
 Return true if in a git dir, and that git dir is free of changes.  This
 will resolve `true` if the git working dir is clean, or `false` if not, and
@@ -149,6 +149,9 @@ occurs.
   object for the thing being fetched (if relevant).
 - `fakePlatform` set to a fake value of `process.platform` to use.  (Just
   for testing `win32` behavior on Unix, and vice versa.)
+- `cwd` The current working dir for the git command.  Particularly for
+  `find` and `is` and `isClean`, it's good to know that this defaults to
+  `process.cwd()`, as one might expect.
 - Any other options that can be passed to
   [`@npmcli/promise-spawn`](http://npm.im/@npmcli/promise-spawn), or
   `child_process.spawn()`.
