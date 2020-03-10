@@ -51,6 +51,10 @@ git.clone('git@github.com:npm/git.git', null, null, {
 })
 ```
 
+This will automatically do a shallow `--depth=1` clone on any hosts that
+are known to support it.  To force a shallow or deep clone, you can set the
+`gitShallow` option to `true` or `false` respectively.
+
 ### `git.revs(repo, opts = {})`
 
 Fetch a representation of all of the named references in a given
@@ -96,3 +100,21 @@ revs = {
   },
 }
 ```
+
+## OPTIONS
+
+- `retry` An object to configure retry behavior for transient network
+  errors with exponential backoff.
+  - `retries`: Defaults to `opts.fetchRetries` or 2
+  - `factor`: Defaults to `opts.fetchRetryFactor` or 10
+  - `maxTimeout`: Defaults to `opts.fetchRetryMaxtimeout` or 60000
+  - `minTimeout`: Defaults to `opts.fetchRetryMintimeout` or 1000
+- `git` Path to the `git` binary to use.  Will look up the first `git` in
+  the `PATH` if not specified.
+- `spec` The [`npm-package-arg`](http://npm.im/npm-package-arg) specifier
+  object for the thing being fetched (if relevant).
+- `fakePlatform` set to a fake value of `process.platform` to use.  (Just
+  for testing `win32` behavior on Unix, and vice versa.)
+- Any other options that can be passed to
+  [`@npmcli/promise-spawn`](http://npm.im/@npmcli/promise-spawn), or
+  `child_process.spawn()`.
