@@ -128,6 +128,13 @@ in a git project somewhere.
 
 Resolves to `null` if not in a git project.
 
+### `git.isClean(path, opts = {})` -> `Promise<Boolean>`
+
+Return true if in a git dir, and that git dir is free of changes.  This
+will resolve `true` if the git working dir is clean, or `false` if not, and
+reject if the path is not within a git directory or some other error
+occurs.
+
 ## OPTIONS
 
 - `retry` An object to configure retry behavior for transient network
