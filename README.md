@@ -110,6 +110,15 @@ revs = {
 }
 ```
 
+### `git.is(path)` -> `Promise<Boolean>`
+
+Resolve to `true` if the path argument refers to the root of a git
+repository.
+
+It does this by looking for a file in `${path}/.git/index`, which is not an
+airtight indicator, but at least avoids being fooled by an empty directory
+or a file named `.git`.
+
 ## OPTIONS
 
 - `retry` An object to configure retry behavior for transient network
