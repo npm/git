@@ -7,6 +7,7 @@ t.rejects(spawn(['status'], { git: false }), {
   code: 'ENOGIT',
 })
 
+const slash = require('slash');
 const mkdirp = require('mkdirp')
 const rimraf = require('rimraf')
 const { basename, resolve } = require('path')
@@ -19,7 +20,7 @@ t.test('setup repo', t => {
   t.teardown(() => process.chdir(cwd))
   process.chdir(repo)
   return t.resolveMatch(spawn(['init']),
-    { stdout: `Initialized empty Git repository in ${repo}` })
+    { stdout: `Initialized empty Git repository in ${slash(repo)}` })
 })
 
 t.test('retries', t => {

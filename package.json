@@ -24,10 +24,12 @@
     "coverage-map": "map.js"
   },
   "devDependencies": {
+    "slash": "^3.0.0",
     "tap": "^14.10.6"
   },
   "dependencies": {
     "@npmcli/promise-spawn": "^1.1.0",
+    "lru-cache": "^5.1.1",
     "mkdirp": "^1.0.3",
     "npm-pick-manifest": "^6.0.0",
     "promise-inflight": "^1.0.1",
