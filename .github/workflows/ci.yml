@@ -57,8 +57,12 @@ jobs:
       #
       #   Simply run the tests for the project.
       ################################################################################
+
       - name: Run tests
-        run: npm test -- --no-coverage
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          npm test -- --no-coverage --timeout 60
 
       ################################################################################
       # Run coverage check
