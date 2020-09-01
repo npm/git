@@ -9,21 +9,13 @@ t.test('a git index is git', t => t.resolveMatch(isGit({cwd: t.testdir({
 
 t.test('no .git is not git', t => t.resolveMatch(isGit({cwd: t.testdir({})}), false))
 
-t.test('.git non-dir is not git', t => t.resolveMatch(isGit({cwd: t.testdir({
-  '.git': 'i am not a git i swear',
-})}), false))
+t.test('.git non-dir might still be git', t => t.resolveMatch(isGit({cwd: t.testdir({
+  '.git': 'i am a git i swear',
+})}), true))
 
-t.test('non-file index is not git', t => t.resolveMatch(isGit({cwd: t.testdir({
-  '.git': {
-    index: {
-      a: 'dir is not an index',
-    },
-  },
-})}), false))
-
-t.test('missing index is not git', t => t.resolveMatch(isGit({cwd: t.testdir({
+t.test('any .git dir is a git', t => t.resolveMatch(isGit({cwd: t.testdir({
   '.git': {},
-})}), false))
+})}), true))
 
 t.test('default to cwd', t => {
   // this will fail if your tmpdir is in a git repo, I suppose
