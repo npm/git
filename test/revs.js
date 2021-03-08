@@ -13,6 +13,7 @@ t.test('setup', t =>
   .then(() => git('config', 'tag.gpgSign', 'false'))
   .then(() => git('config', 'commit.gpgSign', 'false'))
   .then(() => git('config', 'tag.forceSignAnnotated', 'false'))
+  .then(() => git('config', 'init.defaultBranch', 'main'))
   .then(() => write('foo', 'bar'))
   .then(() => git('add', 'foo'))
   .then(() => git('commit', '-m', 'foobar'))
@@ -41,7 +42,7 @@ t.test('point latest at HEAD', t =>
 t.test('add a latest branch, point to 1.2.3 version', t =>
   git('checkout', '-b', 'latest')
   .then(() => git('reset', '--hard', 'version-1.2.3'))
-  .then(() => git('checkout', 'master'))
+  .then(() => git('checkout', 'main'))
 )
 
 // sharing is caring
@@ -64,9 +65,9 @@ const expect = {
       ref: 'latest',
       type: 'branch'
     },
-    master: {
+    main: {
       sha: shaRE,
-      ref: 'master',
+      ref: 'main',
       type: 'branch'
     },
     '699007199254740992.0.0': {
