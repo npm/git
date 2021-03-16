@@ -246,3 +246,8 @@ if ((process.platform) === 'win32') {
     .then((r) => revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
   )
 }
+else {
+  t.test('cloning to folder with spaces with cmd as the shell not on windows', t => 
+    t.rejects(clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { fakePlatform: 'win32', shell: 'cmd' })) )
+}
+
