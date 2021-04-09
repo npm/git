@@ -3,5 +3,5 @@ const t = require('tap')
 t.match(git, {
   clone: Function,
   revs: Function,
-  spawn: Function,
+  spawn: Function
 })

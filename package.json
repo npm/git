@@ -13,11 +13,13 @@
   "author": "Isaac Z. Schlueter <i@izs.me> (https://izs.me)",
   "license": "ISC",
   "scripts": {
-    "test": "tap",
-    "snap": "tap",
-    "preversion": "npm test",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
     "postversion": "npm publish",
-    "prepublishOnly": "git push origin --follow-tags"
+    "prepublishOnly": "git push origin --follow-tags",
+    "preversion": "npm test",
+    "snap": "tap",
+    "test": "tap"
   },
   "tap": {
     "check-coverage": true,
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "slash": "^3.0.0",
+    "standard": "^16.0.3",
     "tap": "^14.11.0"
   },
   "dependencies": {

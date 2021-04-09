@@ -3,7 +3,7 @@ const revs = require('../lib/revs.js')
 
 const t = require('tap')
 const fs = require('fs')
-const {spawn} = require('child_process')
+const { spawn } = require('child_process')
 const rimraf = require('rimraf')
 const { promisify } = require('util')
 const { resolve, join } = require('path')
@@ -12,11 +12,11 @@ const mkdirp = require('mkdirp')
 const port = 12345 + (+process.env.TAP_CHILD_ID || 0)
 const spawnGit = require('../lib/spawn.js')
 t.saveFixture = true
-const regularRepoDir = 'regular-folder';
+const regularRepoDir = 'regular-folder'
 const me = t.testdir({
   'submodule-repo': {},
   repo: {},
-  [ regularRepoDir ]: {},
+  [regularRepoDir]: {}
 })
 const remote = `git://localhost:${port}/repo`
 const submodsRemote = `git://localhost:${port}/submodule-repo`
@@ -30,41 +30,41 @@ t.test('create repo', { bail: true }, t => {
   const git = (...cmd) => spawnGit(cmd, { cwd: repo })
   const write = (f, c) => fs.writeFileSync(`${repo}/${f}`, c)
   return git('init')
-  .then(() => git('config', 'user.name', 'pacotedev'))
-  .then(() => git('config', 'user.email', 'i+pacotedev@izs.me'))
-  .then(() => git('config', 'tag.gpgSign', 'false'))
-  .then(() => git('config', 'commit.gpgSign', 'false'))
-  .then(() => git('config', 'tag.forceSignAnnotated', 'false'))
-  .then(() => write('foo', 'bar'))
-  .then(() => git('add', 'foo'))
-  .then(() => git('commit', '-m', 'foobar'))
-  .then(() => git('tag', '-a', 'asdf', '-m', 'asdf'))
-  .then(() => write('bar', 'foo'))
-  .then(() => git('add', 'bar'))
-  .then(() => git('commit', '-m', 'barfoo'))
-  .then(() => git('tag', 'quux'))
-  .then(() => write('bob', 'obo'))
-  .then(() => git('add', 'bob'))
-  .then(() => git('commit', '-m', 'bob plays the obo'))
-  .then(() => write('pull-file', 'a humble request that you pull'))
-  .then(() => git('add', 'pull-file'))
-  .then(() => git('commit', '-m', 'the ref file'))
-  .then(() => git('update-ref', 'refs/pull/1/head', 'HEAD'))
-  .then(() => write('rando-ref', 'some rando ref'))
-  .then(() => git('add', 'rando-ref'))
-  .then(() => git('commit', '-m', 'so rando'))
-  .then(() => git('update-ref', 'refs/rando/file', 'HEAD'))
-  .then(() => write('other-file', 'file some other bits'))
-  .then(() => git('add', 'other-file'))
-  .then(() => git('commit', '-m', 'others'))
-  .then(() => git('tag', '-am', 'version 1.2.3', 'version-1.2.3'))
-  .then(() => git('tag', '-am', 'too big', '69' + Math.pow(2, 53) + '.0.0'))
-  .then(() => write('gleep', 'glorp'))
-  .then(() => git('add', 'gleep'))
-  .then(() => git('commit', '-m', 'gleep glorp'))
-  .then(() => git('tag', '-am', 'head version', '69.42.0'))
-  .then(() => git('rev-parse', 'HEAD^')
-  .then(({stdout}) => repoSha = stdout.trim()))
+    .then(() => git('config', 'user.name', 'pacotedev'))
+    .then(() => git('config', 'user.email', 'i+pacotedev@izs.me'))
+    .then(() => git('config', 'tag.gpgSign', 'false'))
+    .then(() => git('config', 'commit.gpgSign', 'false'))
+    .then(() => git('config', 'tag.forceSignAnnotated', 'false'))
+    .then(() => write('foo', 'bar'))
+    .then(() => git('add', 'foo'))
+    .then(() => git('commit', '-m', 'foobar'))
+    .then(() => git('tag', '-a', 'asdf', '-m', 'asdf'))
+    .then(() => write('bar', 'foo'))
+    .then(() => git('add', 'bar'))
+    .then(() => git('commit', '-m', 'barfoo'))
+    .then(() => git('tag', 'quux'))
+    .then(() => write('bob', 'obo'))
+    .then(() => git('add', 'bob'))
+    .then(() => git('commit', '-m', 'bob plays the obo'))
+    .then(() => write('pull-file', 'a humble request that you pull'))
+    .then(() => git('add', 'pull-file'))
+    .then(() => git('commit', '-m', 'the ref file'))
+    .then(() => git('update-ref', 'refs/pull/1/head', 'HEAD'))
+    .then(() => write('rando-ref', 'some rando ref'))
+    .then(() => git('add', 'rando-ref'))
+    .then(() => git('commit', '-m', 'so rando'))
+    .then(() => git('update-ref', 'refs/rando/file', 'HEAD'))
+    .then(() => write('other-file', 'file some other bits'))
+    .then(() => git('add', 'other-file'))
+    .then(() => git('commit', '-m', 'others'))
+    .then(() => git('tag', '-am', 'version 1.2.3', 'version-1.2.3'))
+    .then(() => git('tag', '-am', 'too big', '69' + Math.pow(2, 53) + '.0.0'))
+    .then(() => write('gleep', 'glorp'))
+    .then(() => git('add', 'gleep'))
+    .then(() => git('commit', '-m', 'gleep glorp'))
+    .then(() => git('tag', '-am', 'head version', '69.42.0'))
+    .then(() => git('rev-parse', 'HEAD^')
+      .then(({ stdout }) => repoSha = stdout.trim()))
 })
 
 t.test('spawn daemon', { bail: true }, t => {
@@ -75,9 +75,9 @@ t.test('spawn daemon', { bail: true }, t => {
     '--verbose',
     '--informative-errors',
     '--reuseaddr',
-    `--base-path=.`,
-    '--listen=localhost',
-  ], { cwd: me, stdio: ['pipe', 1, 'pipe' ] })
+    '--base-path=.',
+    '--listen=localhost'
+  ], { cwd: me, stdio: ['pipe', 1, 'pipe'] })
   const onDaemonData = c => {
     // prepare to slay the daemon
     const cpid = c.toString().match(/^\[(\d+)\]/)
@@ -137,7 +137,7 @@ t.test('create a repo with a submodule', { bail: true }, t => {
     .then(() => git('commit', '-m', 'gleep glorp'))
     .then(() => git('tag', '-am', 'head version', '69.42.0'))
     .then(() => git('rev-parse', 'HEAD^')
-    .then(({stdout}) => submodsRepoSha = stdout.trim()))
+      .then(({ stdout }) => submodsRepoSha = stdout.trim()))
 })
 
 const windowsPlatform = process.platform === 'win32' ? null : 'win32'
@@ -151,7 +151,7 @@ const refs = [
   'refs/rando/file',
   'pull/1',
   '699007199254740992.0.0^^',
-  'semver:1.x',
+  'semver:1.x'
 ]
 
 const npa = require('npm-package-arg')
@@ -211,44 +211,42 @@ t.test('again, with a submodule', t => {
   }))
 })
 
-const clonedRepoDir = 'cloned-folder';
-const clonedSpacesRepoDir = 'cloned folder with spaces';
-const clonedSpacesRepoDir2 = 'cloned folder with spaces too';
+const clonedRepoDir = 'cloned-folder'
+const clonedSpacesRepoDir = 'cloned folder with spaces'
+const clonedSpacesRepoDir2 = 'cloned folder with spaces too'
 
-const regularRepo = join(me, regularRepoDir);
-const clonedRepo = join(me, clonedRepoDir);
-const clonedRepoSpaces = join(me, clonedSpacesRepoDir);
-const clonedRepoSpaces2 = join(me, clonedSpacesRepoDir2);
+const regularRepo = join(me, regularRepoDir)
+const clonedRepo = join(me, clonedRepoDir)
+const clonedRepoSpaces = join(me, clonedSpacesRepoDir)
+const clonedRepoSpaces2 = join(me, clonedSpacesRepoDir2)
 
 t.test('setup aditional tests', t => {
   const git = (...cmd) => spawnGit(cmd, { cwd: regularRepo })
   const write = (f, c) => fs.writeFileSync(`${regularRepo}/${f}`, c)
   return git('init')
-  .then(() => write('foo', 'bar'))
-  .then(() => git('add', 'foo'))
-  .then(() => git('commit', '-m', 'foobar'))
+    .then(() => write('foo', 'bar'))
+    .then(() => git('add', 'foo'))
+    .then(() => git('commit', '-m', 'foobar'))
 })
 
 t.test('cloning to regular folder', t =>
   clone(join(regularRepo, '.git'), 'HEAD', clonedRepo)
-  .then(() => revs(regularRepo))
-  .then((r) => revs(clonedRepo).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+    .then(() => revs(regularRepo))
+    .then((r) => revs(clonedRepo).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
 )
 t.test('cloning to folder with spaces', t =>
   clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces)
-  .then(() => revs(regularRepo))
-  .then((r) => revs(clonedRepoSpaces).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+    .then(() => revs(regularRepo))
+    .then((r) => revs(clonedRepoSpaces).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
 )
 
 if ((process.platform) === 'win32') {
   t.test('cloning to folder with spaces with cmd as the shell on windows', t =>
     clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { shell: 'cmd' })
-    .then(() => revs(regularRepo))
-    .then((r) => revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+      .then(() => revs(regularRepo))
+      .then((r) => revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
   )
+} else {
+  t.test('cloning to folder with spaces with cmd as the shell not on windows', t =>
+    t.rejects(clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { fakePlatform: 'win32', shell: 'cmd' })))
 }
-else {
-  t.test('cloning to folder with spaces with cmd as the shell not on windows', t => 
-    t.rejects(clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { fakePlatform: 'win32', shell: 'cmd' })) )
-}
-
