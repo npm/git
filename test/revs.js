@@ -5,9 +5,29 @@ const repo = t.testdir()
 const fs = require('fs')
 
 const git = (...cmd) => spawn(cmd, {cwd: repo})
+let mainBranch = 'main'
+const fixMainBranch = (err) => {
+  if (err.code !== 129) {
+    throw err;
+  }
+  const oldMainBranch = 'master';
+  const fixedRefs = {};
+  for (const index of  Object.keys(expect.refs)) {
+    if (index === mainBranch) {
+      fixedRefs[oldMainBranch] = expect.refs[index]
+      fixedRefs[oldMainBranch].ref = oldMainBranch
+    }
+    else {
+      fixedRefs[index] = expect.refs[index]
+    }
+  }
+  expect.refs = fixedRefs;
+  mainBranch = oldMainBranch;
+  return git('init')
+}
 const write = (f, c) => fs.writeFileSync(`${repo}/${f}`, c)
 t.test('setup', t =>
-  git('init', '-b', 'main')
+  git('init', '-b', mainBranch).catch(fixMainBranch)
   .then(() => git('config', 'user.name', 'pacotedev'))
   .then(() => git('config', 'user.email', 'i+pacotedev@izs.me'))
   .then(() => git('config', 'tag.gpgSign', 'false'))
@@ -41,7 +61,7 @@ t.test('point latest at HEAD', t =>
 t.test('add a latest branch, point to 1.2.3 version', t =>
   git('checkout', '-b', 'latest')
   .then(() => git('reset', '--hard', 'version-1.2.3'))
-  .then(() => git('checkout', 'main'))
+  .then(() => git('checkout', mainBranch))
 )
 
 // sharing is caring
@@ -64,9 +84,9 @@ const expect = {
       ref: 'latest',
       type: 'branch'
     },
-    main: {
+    [mainBranch]: {
       sha: shaRE,
-      ref: 'main',
+      ref: mainBranch,
       type: 'branch'
     },
     '699007199254740992.0.0': {
