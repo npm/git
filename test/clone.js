@@ -1,19 +1,22 @@
 const clone = require('../lib/clone.js')
+const revs = require('../lib/revs.js')
 
 const t = require('tap')
 const fs = require('fs')
 const {spawn} = require('child_process')
 const rimraf = require('rimraf')
 const { promisify } = require('util')
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 const mkdirp = require('mkdirp')
 
 const port = 12345 + (+process.env.TAP_CHILD_ID || 0)
 const spawnGit = require('../lib/spawn.js')
 t.saveFixture = true
+const regularRepoDir = 'regular-folder';
 const me = t.testdir({
   'submodule-repo': {},
   repo: {},
+  [ regularRepoDir ]: {},
 })
 const remote = `git://localhost:${port}/repo`
 const submodsRemote = `git://localhost:${port}/submodule-repo`
@@ -207,3 +210,45 @@ t.test('again, with a submodule', t => {
     }))
   }))
 })
+
+const clonedRepoDir = 'cloned-folder';
+const clonedSpacesRepoDir = 'cloned folder with spaces';
+const clonedSpacesRepoDir2 = 'cloned folder with spaces too';
+
+const regularRepo = join(me, regularRepoDir);
+const clonedRepo = join(me, clonedRepoDir);
+const clonedRepoSpaces = join(me, clonedSpacesRepoDir);
+const clonedRepoSpaces2 = join(me, clonedSpacesRepoDir2);
+
+t.test('setup aditional tests', t => {
+  const git = (...cmd) => spawnGit(cmd, { cwd: regularRepo })
+  const write = (f, c) => fs.writeFileSync(`${regularRepo}/${f}`, c)
+  return git('init')
+  .then(() => write('foo', 'bar'))
+  .then(() => git('add', 'foo'))
+  .then(() => git('commit', '-m', 'foobar'))
+})
+
+t.test('cloning to regular folder', t =>
+  clone(join(regularRepo, '.git'), 'HEAD', clonedRepo)
+  .then(() => revs(regularRepo))
+  .then((r) => revs(clonedRepo).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+)
+t.test('cloning to folder with spaces', t =>
+  clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces)
+  .then(() => revs(regularRepo))
+  .then((r) => revs(clonedRepoSpaces).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+)
+
+if ((process.platform) === 'win32') {
+  t.test('cloning to folder with spaces with cmd as the shell on windows', t =>
+    clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { shell: 'cmd' })
+    .then(() => revs(regularRepo))
+    .then((r) => revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+  )
+}
+else {
+  t.test('cloning to folder with spaces with cmd as the shell not on windows', t => 
+    t.rejects(clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { fakePlatform: 'win32', shell: 'cmd' })) )
+}
+
