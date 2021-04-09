@@ -64,6 +64,10 @@ jobs:
           git config --global user.name "Your Name"
           npm test -- --no-coverage --timeout 60
 
+      - name: Run linting
+        run: |
+          npm run lint
+
       ################################################################################
       # Run coverage check
       #
