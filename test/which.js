@@ -3,7 +3,6 @@ const mungePath = process.argv[2] === 'mungePath'
 
 if (mungePath) {
   // munge path so git env is not found
-  const PATH = process.env.PATH
   process.env.PATH = __dirname
 }
 

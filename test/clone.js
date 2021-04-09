@@ -5,7 +5,6 @@ const t = require('tap')
 const fs = require('fs')
 const { spawn } = require('child_process')
 const rimraf = require('rimraf')
-const { promisify } = require('util')
 const { resolve, join } = require('path')
 const mkdirp = require('mkdirp')
 
@@ -64,7 +63,11 @@ t.test('create repo', { bail: true }, t => {
     .then(() => git('commit', '-m', 'gleep glorp'))
     .then(() => git('tag', '-am', 'head version', '69.42.0'))
     .then(() => git('rev-parse', 'HEAD^')
-      .then(({ stdout }) => repoSha = stdout.trim()))
+      .then(({ stdout }) => {
+        repoSha = stdout.trim()
+        return repoSha
+      })
+    )
 })
 
 t.test('spawn daemon', { bail: true }, t => {
@@ -137,7 +140,11 @@ t.test('create a repo with a submodule', { bail: true }, t => {
     .then(() => git('commit', '-m', 'gleep glorp'))
     .then(() => git('tag', '-am', 'head version', '69.42.0'))
     .then(() => git('rev-parse', 'HEAD^')
-      .then(({ stdout }) => submodsRepoSha = stdout.trim()))
+      .then(({ stdout }) => {
+        submodsRepoSha = stdout.trim()
+        return submodsRepoSha
+      })
+    )
 })
 
 const windowsPlatform = process.platform === 'win32' ? null : 'win32'
@@ -170,8 +177,7 @@ t.test('check every out', t => {
         const safeRef = `${ref}`.replace(/[^a-z0-9.]/g, '-')
         const name = `${fakePlatform}-${gitShallow}-${safeRef}`
         const target = resolve(me, name)
-        const spec = ref === undefined ? undefined
-          : npa(remote + (ref ? `#${ref}` : ''))
+        const spec = ref === undefined ? undefined : npa(remote + (ref ? `#${ref}` : ''))
         const opts = { fakePlatform, gitShallow, spec }
         return clone(remote, ref, target, opts)
           .then(sha => t.match(sha, hashre, `got a sha for ref=${ref}`))
@@ -195,8 +201,7 @@ t.test('again, with a submodule', t => {
         const cwd = resolve(me, name)
         mkdirp.sync(cwd)
         const target = resolve(cwd, 'submodule-repo')
-        const spec = ref === undefined ? undefined
-          : npa(remote + (ref ? `#${ref}` : ''))
+        const spec = ref === undefined ? undefined : npa(remote + (ref ? `#${ref}` : ''))
         const opts = { fakePlatform, gitShallow, cwd, spec }
         return clone(submodsRemote, ref, undefined, opts)
           .then(sha => t.match(sha, hashre, `got a sha for ref=${ref}`))

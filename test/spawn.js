@@ -8,9 +8,7 @@ t.rejects(spawn(['status'], { git: false }), {
 })
 
 const slash = require('slash')
-const mkdirp = require('mkdirp')
-const rimraf = require('rimraf')
-const { basename, resolve } = require('path')
+const { resolve } = require('path')
 const repo = t.testdir()
 
 const fs = require('fs')
