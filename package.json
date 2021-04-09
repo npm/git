@@ -25,16 +25,16 @@
   },
   "devDependencies": {
     "slash": "^3.0.0",
-    "tap": "^14.10.6"
+    "tap": "^14.11.0"
   },
   "dependencies": {
-    "@npmcli/promise-spawn": "^1.1.0",
+    "@npmcli/promise-spawn": "^1.3.2",
     "lru-cache": "^6.0.0",
-    "mkdirp": "^1.0.3",
-    "npm-pick-manifest": "^6.0.0",
+    "mkdirp": "^1.0.4",
+    "npm-pick-manifest": "^6.1.1",
     "promise-inflight": "^1.0.1",
     "promise-retry": "^2.0.1",
-    "semver": "^7.3.2",
+    "semver": "^7.3.5",
     "unique-filename": "^1.1.1",
     "which": "^2.0.2"
   }
