@@ -24,7 +24,7 @@ const repo = resolve(me, 'repo')
 let repoSha = ''
 let submodsRepoSha = ''
 
-t.setTimeout(60000)
+t.setTimeout(120000)
 t.test('create repo', { bail: true }, t => {
   const git = (...cmd) => spawnGit(cmd, { cwd: repo })
   const write = (f, c) => fs.writeFileSync(`${repo}/${f}`, c)
