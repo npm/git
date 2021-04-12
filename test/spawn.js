@@ -4,13 +4,11 @@ const procLog = require('../lib/proc-log.js')
 const t = require('tap')
 t.rejects(spawn(['status'], { git: false }), {
   message: 'No git binary found in $PATH',
-  code: 'ENOGIT',
+  code: 'ENOGIT'
 })
 
-const slash = require('slash');
-const mkdirp = require('mkdirp')
-const rimraf = require('rimraf')
-const { basename, resolve } = require('path')
+const slash = require('slash')
+const { resolve } = require('path')
 const repo = t.testdir()
 
 const fs = require('fs')
@@ -37,31 +35,31 @@ process.exit(1)
         retries: 2,
         factor: 1,
         maxTimeout: 1000,
-        minTimeout: 1,
-      },
+        minTimeout: 1
+      }
     },
     'namespaced fetchRetry* configs': {
       fetchRetries: 2,
       fetchRetryFactor: 1,
       fetchRetryMaxtimeout: 1000,
-      fetchRetryMintimeout: 1,
+      fetchRetryMintimeout: 1
     }
   }
   const er = {
     message: 'command failed',
     cmd: process.execPath,
-    args: [ te ],
+    args: [te],
     code: 1,
     signal: null,
     stdout: '',
-    stderr: 'Connection timed out\n',
+    stderr: 'Connection timed out\n'
   }
   Object.keys(retryOptions).forEach(n => t.test(n, t =>
     t.rejects(spawn([te], {
       cwd: repo,
       git: process.execPath,
       log: procLog,
-      ...(retryOptions[n]),
+      ...(retryOptions[n])
     }), er).then(() => {
       t.same(logs, [
         [

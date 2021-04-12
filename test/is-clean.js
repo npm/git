@@ -10,22 +10,22 @@ const write = (file, data) => writeFile(resolve(repo, file), data)
 
 t.test('create git repo', t =>
   spawn(['init'], { cwd: repo })
-  .then(() => write('hello', 'world')))
+    .then(() => write('hello', 'world')))
 
 t.test('dir is clean, just one unknown file', t =>
-  t.resolveMatch(isClean({cwd: repo}), true))
+  t.resolveMatch(isClean({ cwd: repo }), true))
 
 t.test('add the file, no longer clean', t =>
   spawn(['add', 'hello'], { cwd: repo })
-  .then(() => t.resolveMatch(isClean({cwd: repo}), false)))
+    .then(() => t.resolveMatch(isClean({ cwd: repo }), false)))
 
 t.test('commit the file, clean again', t =>
   spawn(['commit', '-m', 'x'], { cwd: repo })
-  .then(() => t.resolveMatch(isClean({cwd: repo}), true)))
+    .then(() => t.resolveMatch(isClean({ cwd: repo }), true)))
 
 t.test('edit the file, unclean again', t =>
   write('hello', 'goodbye')
-  .then(() => t.resolveMatch(isClean({cwd: repo}), false)))
+    .then(() => t.resolveMatch(isClean({ cwd: repo }), false)))
 
 t.test('default to repo', t => {
   const cwd = process.cwd()

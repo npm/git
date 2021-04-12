@@ -46,11 +46,11 @@ const expect = {
       sha: shaRE,
       ref: 'version-1.2.3',
       type: 'tag'
-    },
+    }
   },
   'dist-tags': {
     latest: '1.2.3',
-    HEAD: '69.42.0',
+    HEAD: '69.42.0'
   },
   refs: {
     latest: {
@@ -84,18 +84,17 @@ const expect = {
       type: 'tag'
     }
   },
-  shas: Object,
+  shas: Object
 }
 
 t.test('point latest at HEAD', t => {
   const r = linesToRevs(first)
-  t.same(r['dist-tags'],{
+  t.same(r['dist-tags'], {
     HEAD: '69.42.0',
-    latest: '69.42.0',
+    latest: '69.42.0'
   })
   t.end()
 })
-
 
 t.test('check the revs', t => {
   const r = linesToRevs(second)
