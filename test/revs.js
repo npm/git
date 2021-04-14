@@ -1,6 +1,7 @@
 const revs = require('../lib/revs.js')
 const spawn = require('../lib/spawn.js')
 const t = require('tap')
+const { resolve } = require('path')
 const repo = t.testdir()
 const fs = require('fs')
 
@@ -119,3 +120,14 @@ t.test('check the revs', t =>
     Object.keys(r.shas).forEach(sha => r.shas[sha].forEach(ref =>
       t.equal(r.refs[ref].sha, sha, `shas list is consistent ${ref}`)))
   })))
+
+if ((process.platform) !== 'win32') {
+  t.test('format invalid remote repo urls', async t => {
+    const path = resolve(t.testdir(), 'foo')
+    const invalid = `https://github.com/repo$(touch ${path})`
+    const opts = { shell: '/bin/bash' }
+    const err = (e) => {}
+    const check = () => t.notOk(fs.existsSync(path), 'file should not exist')
+    await revs(invalid, opts).catch(err).finally(check)
+  })
+}
