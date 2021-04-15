@@ -19,7 +19,8 @@
     "prepublishOnly": "git push origin --follow-tags",
     "preversion": "npm test",
     "snap": "tap",
-    "test": "tap"
+    "test": "tap",
+    "posttest": "npm run lint"
   },
   "tap": {
     "check-coverage": true,

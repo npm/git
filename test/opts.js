@@ -7,6 +7,9 @@ const gitEnv = {
 
 t.match(gitOpts().env, gitEnv, 'got the git defaults we want')
 
+t.equal(gitOpts().shell, false, 'shell defaults to false')
+t.equal(gitOpts({ shell: '/bin/bash' }).shell, false, 'shell cannot be overridden')
+
 t.test('does not override', t => {
   const { GIT_ASKPASS, GIT_SSH_COMMAND } = process.env
   t.teardown(() => {
