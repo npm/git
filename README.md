@@ -137,11 +137,6 @@ occurs.
 
 ## OPTIONS
 
-- `allowReplace` If not set to a truthy value, then all git commands will
-  be executed with the first argument `--no-replace-objects`, to avoid
-  situations where a replacement object can cause unexpected behavior.  If
-  you _want_ to respect git replacement objects, then set
-  `{allowReplace:true}` in the options.
 - `retry` An object to configure retry behavior for transient network
   errors with exponential backoff.
   - `retries`: Defaults to `opts.fetchRetries` or 2
