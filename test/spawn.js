@@ -29,12 +29,16 @@ t.test('argument test for allowReplace', async t => {
   const spawn = t.mock('../lib/spawn.js', {
     '@npmcli/promise-spawn': async (exe, args, opts) => args
   })
-  const [withReplace, withoutReplace] = await Promise.all([
+  const [allow, deny, allowWithArg, denyWithArg] = await Promise.all([
     spawn(['a', 'b', 'c'], { allowReplace: true }),
-    spawn(['a', 'b', 'c'])
+    spawn(['a', 'b', 'c']),
+    spawn(['--no-replace-objects', 'a', 'b', 'c'], { allowReplace: true }),
+    spawn(['--no-replace-objects', 'a', 'b', 'c'])
   ])
-  t.same(withReplace, ['a', 'b', 'c'], 'replacements allowed')
-  t.same(withoutReplace, ['--no-replace-objects', 'a', 'b', 'c'], 'replacements not allowed')
+  t.same(allow, ['a', 'b', 'c'], 'replacements allowed')
+  t.same(deny, ['--no-replace-objects', 'a', 'b', 'c'], 'replacements not allowed')
+  t.same(allowWithArg, ['--no-replace-objects', 'a', 'b', 'c'], 'allowed by config, not pruned out')
+  t.same(denyWithArg, ['--no-replace-objects', 'a', 'b', 'c'], 'denied by config, not duplicated')
 })
 
 t.test('retries', t => {
@@ -81,12 +85,12 @@ process.exit(1)
       t.same(logs, [
         [
           'silly',
-          'pacote',
+          'git',
           `Retrying git command: ${te} attempt # 2`
         ],
         [
           'silly',
-          'pacote',
+          'git',
           `Retrying git command: ${te} attempt # 3`
         ]
       ], 'got expected logs')
