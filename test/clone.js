@@ -10,15 +10,16 @@ const mkdirp = require('mkdirp')
 
 const port = 12345 + (+process.env.TAP_CHILD_ID || 0)
 const spawnGit = require('../lib/spawn.js')
-t.saveFixture = true
 const regularRepoDir = 'regular-folder'
 const me = t.testdir({
   'submodule-repo': {},
   repo: {},
-  [regularRepoDir]: {}
+  [regularRepoDir]: {},
+  'replacement-repo': {}
 })
 const remote = `git://localhost:${port}/repo`
 const submodsRemote = `git://localhost:${port}/submodule-repo`
+const replacementRemote = `git://localhost:${port}/replacement-repo`
 const repo = resolve(me, 'repo')
 
 let repoSha = ''
@@ -28,7 +29,7 @@ t.setTimeout(120000)
 t.test('create repo', { bail: true }, t => {
   const git = (...cmd) => spawnGit(cmd, { cwd: repo })
   const write = (f, c) => fs.writeFileSync(`${repo}/${f}`, c)
-  return git('init')
+  return git('init', '-b', 'main')
     .then(() => git('config', 'user.name', 'pacotedev'))
     .then(() => git('config', 'user.email', 'i+pacotedev@izs.me'))
     .then(() => git('config', 'tag.gpgSign', 'false'))
@@ -88,6 +89,7 @@ t.test('spawn daemon', { bail: true }, t => {
       daemon.stderr.removeListener('data', onDaemonData)
       const pid = +cpid[1]
       t.parent.teardown(() => process.kill(pid))
+      t.parent.on('bailout', () => process.kill(pid))
       t.end()
     }
   }
@@ -100,7 +102,7 @@ t.test('create a repo with a submodule', { bail: true }, t => {
   const repo = resolve(me, 'submodule-repo')
   const git = (...cmd) => spawnGit(cmd, { cwd: repo })
   const write = (f, c) => fs.writeFileSync(`${repo}/${f}`, c)
-  return git('init')
+  return git('init', '-b', 'main')
     .then(() => git('config', 'user.name', 'pacotedev'))
     .then(() => git('config', 'user.email', 'i+pacotedev@izs.me'))
     .then(() => git('config', 'tag.gpgSign', 'false'))
@@ -228,7 +230,7 @@ const clonedRepoSpaces2 = join(me, clonedSpacesRepoDir2)
 t.test('setup aditional tests', t => {
   const git = (...cmd) => spawnGit(cmd, { cwd: regularRepo })
   const write = (f, c) => fs.writeFileSync(`${regularRepo}/${f}`, c)
-  return git('init')
+  return git('init', '-b', 'main')
     .then(() => write('foo', 'bar'))
     .then(() => git('add', 'foo'))
     .then(() => git('commit', '-m', 'foobar'))
@@ -258,3 +260,45 @@ if ((process.platform) === 'win32') {
       .then((r) => revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
   )
 }
+
+t.test('avoid having replacements break the world', async t => {
+  let replacementSha
+  t.before(async () => {
+    // The replacement ends up being 2 steps behind HEAD
+    const path = resolve(me, 'replacement-repo')
+    const git = (...cmd) => spawnGit(cmd, { cwd: path, allowReplace: true })
+    const write = (f, c) => fs.writeFileSync(`${path}/${f}`, c)
+    await git('clone', '--mirror', remote, `${path}/.git`)
+    await git('init', '-b', 'main')
+    await git('config', 'user.name', 'pacotedev')
+    await git('config', 'user.email', 'i+pacotedev@izs.me')
+    await git('config', 'tag.gpgSign', 'false')
+    await git('config', 'commit.gpgSign', 'false')
+    await git('config', 'tag.forceSignAnnotated', 'false')
+    await git('checkout', 'main')
+    await git('checkout', '-b', 'replacement-branch')
+    await write('replacement-file', 'replacement contents')
+    await git('add', 'replacement-file')
+    await git('commit', '-m', 'replacement commit')
+    const { stdout } = await git('rev-parse', 'HEAD')
+    replacementSha = stdout.trim()
+    await git('checkout', 'main')
+    await write('post-replacement', 'after replacement')
+    await git('add', 'post-replacement')
+    await git('commit', '-m', 'after the replacement')
+    await git('replace', '-f', repoSha, replacementSha)
+  })
+  t.test('get the original thing by default', async t => {
+    const path = t.testdir() + '/noreplace'
+    await clone(replacementRemote, 'HEAD^^', path)
+    t.throws(() => fs.statSync(resolve(path, 'replacement-file')), {
+      code: 'ENOENT'
+    }, 'should not have file from replacement commit')
+  })
+  t.test('get the replaced thing if allowReplace:true', async t => {
+    const path = t.testdir() + '/yesreplace'
+    await clone(replacementRemote, 'HEAD^^', path, { allowReplace: true })
+    t.equal(fs.readFileSync(resolve(path, 'replacement-file'), 'utf8'),
+      'replacement contents')
+  })
+})
