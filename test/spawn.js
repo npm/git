@@ -21,6 +21,26 @@ t.test('setup repo', t => {
     { stdout: `Initialized empty Git repository in ${slash(fs.realpathSync.native(repo))}` })
 })
 
+t.test('argument test for allowReplace', async t => {
+  // Note: the *actual* impact of allowReplace:true is tested in
+  // test/clone.js, since it covers the use case that is relevant
+  // for our purposes.  This just tests that the argument is added
+  // by default.
+  const spawn = t.mock('../lib/spawn.js', {
+    '@npmcli/promise-spawn': async (exe, args, opts) => args
+  })
+  const [allow, deny, allowWithArg, denyWithArg] = await Promise.all([
+    spawn(['a', 'b', 'c'], { allowReplace: true }),
+    spawn(['a', 'b', 'c']),
+    spawn(['--no-replace-objects', 'a', 'b', 'c'], { allowReplace: true }),
+    spawn(['--no-replace-objects', 'a', 'b', 'c'])
+  ])
+  t.same(allow, ['a', 'b', 'c'], 'replacements allowed')
+  t.same(deny, ['--no-replace-objects', 'a', 'b', 'c'], 'replacements not allowed')
+  t.same(allowWithArg, ['--no-replace-objects', 'a', 'b', 'c'], 'allowed by config, not pruned out')
+  t.same(denyWithArg, ['--no-replace-objects', 'a', 'b', 'c'], 'denied by config, not duplicated')
+})
+
 t.test('retries', t => {
   const logs = []
   process.on('log', (...log) => logs.push(log))
@@ -58,18 +78,19 @@ process.exit(1)
     t.rejects(spawn([te], {
       cwd: repo,
       git: process.execPath,
+      allowReplace: true,
       log: procLog,
       ...(retryOptions[n])
     }), er).then(() => {
       t.same(logs, [
         [
           'silly',
-          'pacote',
+          'git',
           `Retrying git command: ${te} attempt # 2`
         ],
         [
           'silly',
-          'pacote',
+          'git',
           `Retrying git command: ${te} attempt # 3`
         ]
       ], 'got expected logs')
