@@ -8,6 +8,10 @@ const rimraf = require('rimraf')
 const { resolve, join } = require('path')
 const mkdirp = require('mkdirp')
 
+// keep the fixture, because Windows fails when it tries to delete it,
+// due to all the git operations happening inside.
+t.saveFixture = true
+
 const port = 12345 + (+process.env.TAP_CHILD_ID || 0)
 const spawnGit = require('../lib/spawn.js')
 const regularRepoDir = 'regular-folder'
@@ -261,7 +265,7 @@ if ((process.platform) === 'win32') {
   )
 }
 
-t.test('avoid having replacements break the world', async t => {
+t.test('avoid having replacements break the world', { saveFixture: false }, async t => {
   let replacementSha
   t.before(async () => {
     // The replacement ends up being 2 steps behind HEAD
