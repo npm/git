@@ -1,6 +1,6 @@
 const spawn = require('../lib/spawn.js')
 const procLog = require('../lib/proc-log.js')
-const error = require('../lib/error.js')
+const errors = require('../lib/errors.js')
 
 const t = require('tap')
 t.rejects(spawn(['status'], { git: false }), {
@@ -67,13 +67,14 @@ process.exit(1)
       fetchRetryMintimeout: 1
     }
   }
-  const er = Object.assign(new error.GitConnectionError(`command failed: ${gitMessage}`), {
+  const er = Object.assign(new errors.GitConnectionError(gitMessage), {
     cmd: process.execPath,
     args: [te],
     code: 1,
     signal: null,
     stdout: '',
-    stderr: gitMessage
+    stderr: gitMessage,
+    message: `A git connection error occurred. ${gitMessage}`
   })
   Object.keys(retryOptions).forEach(n => t.test(n, t =>
     t.rejects(spawn([te], {
@@ -107,13 +108,14 @@ t.test('missing pathspec', t => {
 console.error("${gitMessage.trim()}")
 process.exit(1)
   `)
-  const er = Object.assign(new error.GitPathspecError(`command failed: ${gitMessage}`), {
+  const er = Object.assign(new errors.GitPathspecError(gitMessage), {
     cmd: process.execPath,
     args: [te],
     code: 1,
     signal: null,
     stdout: '',
-    stderr: gitMessage
+    stderr: gitMessage,
+    message: `The git reference could not be found. ${gitMessage}`
   })
   t.rejects(spawn([te], {
     cwd: repo,
@@ -126,18 +128,19 @@ process.exit(1)
 
 t.test('unknown git error', t => {
   const gitMessage = 'error: something really bad happened to git\n'
-  const te = resolve(repo, 'unkknown-error.js')
+  const te = resolve(repo, 'unknown-error.js')
   fs.writeFileSync(te, `
 console.error("${gitMessage.trim()}")
 process.exit(1)
   `)
-  const er = Object.assign(new error.GitUnknownError(`command failed: ${gitMessage}`), {
+  const er = Object.assign(new errors.GitUnknownError(gitMessage), {
     cmd: process.execPath,
     args: [te],
     code: 1,
     signal: null,
     stdout: '',
-    stderr: gitMessage
+    stderr: gitMessage,
+    message: `An unknown git error occurred. ${gitMessage}`
   })
   t.rejects(spawn([te], {
     cwd: repo,
