@@ -74,7 +74,7 @@ process.exit(1)
     signal: null,
     stdout: '',
     stderr: gitMessage,
-    message: `A git connection error occurred. ${gitMessage}`
+    message: 'A git connection error occurred'
   })
   Object.keys(retryOptions).forEach(n => t.test(n, t =>
     t.rejects(spawn([te], {
@@ -115,7 +115,7 @@ process.exit(1)
     signal: null,
     stdout: '',
     stderr: gitMessage,
-    message: `The git reference could not be found. ${gitMessage}`
+    message: 'The git reference could not be found'
   })
   t.rejects(spawn([te], {
     cwd: repo,
@@ -140,7 +140,7 @@ process.exit(1)
     signal: null,
     stdout: '',
     stderr: gitMessage,
-    message: `An unknown git error occurred. ${gitMessage}`
+    message: 'An unknown git error occurred'
   })
   t.rejects(spawn([te], {
     cwd: repo,
