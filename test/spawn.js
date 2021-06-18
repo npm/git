@@ -1,5 +1,6 @@
 const spawn = require('../lib/spawn.js')
 const procLog = require('../lib/proc-log.js')
+const errors = require('../lib/errors.js')
 
 const t = require('tap')
 t.rejects(spawn(['status'], { git: false }), {
@@ -44,9 +45,10 @@ t.test('argument test for allowReplace', async t => {
 t.test('retries', t => {
   const logs = []
   process.on('log', (...log) => logs.push(log))
+  const gitMessage = 'Connection timed out\n'
   const te = resolve(repo, 'transient-error.js')
   fs.writeFileSync(te, `
-console.error('Connection timed out')
+console.error('${gitMessage.trim()}')
 process.exit(1)
   `)
   const retryOptions = {
@@ -65,15 +67,15 @@ process.exit(1)
       fetchRetryMintimeout: 1
     }
   }
-  const er = {
-    message: 'command failed',
+  const er = Object.assign(new errors.GitConnectionError(gitMessage), {
     cmd: process.execPath,
     args: [te],
     code: 1,
     signal: null,
     stdout: '',
-    stderr: 'Connection timed out\n'
-  }
+    stderr: gitMessage,
+    message: 'A git connection error occurred'
+  })
   Object.keys(retryOptions).forEach(n => t.test(n, t =>
     t.rejects(spawn([te], {
       cwd: repo,
@@ -96,5 +98,55 @@ process.exit(1)
       ], 'got expected logs')
       logs.length = 0
     })))
+  t.end()
+})
+
+t.test('missing pathspec', t => {
+  const gitMessage = 'error: pathspec \'foo\' did not match any file(s) known to git\n'
+  const te = resolve(repo, 'pathspec-error.js')
+  fs.writeFileSync(te, `
+console.error("${gitMessage.trim()}")
+process.exit(1)
+  `)
+  const er = Object.assign(new errors.GitPathspecError(gitMessage), {
+    cmd: process.execPath,
+    args: [te],
+    code: 1,
+    signal: null,
+    stdout: '',
+    stderr: gitMessage,
+    message: 'The git reference could not be found'
+  })
+  t.rejects(spawn([te], {
+    cwd: repo,
+    git: process.execPath,
+    allowReplace: true,
+    log: procLog
+  }), er)
+  t.end()
+})
+
+t.test('unknown git error', t => {
+  const gitMessage = 'error: something really bad happened to git\n'
+  const te = resolve(repo, 'unknown-error.js')
+  fs.writeFileSync(te, `
+console.error("${gitMessage.trim()}")
+process.exit(1)
+  `)
+  const er = Object.assign(new errors.GitUnknownError(gitMessage), {
+    cmd: process.execPath,
+    args: [te],
+    code: 1,
+    signal: null,
+    stdout: '',
+    stderr: gitMessage,
+    message: 'An unknown git error occurred'
+  })
+  t.rejects(spawn([te], {
+    cwd: repo,
+    git: process.execPath,
+    allowReplace: true,
+    log: procLog
+  }), er)
   t.end()
 })
