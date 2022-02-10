@@ -8,12 +8,14 @@ if (mungePath) {
 
 const er = {
   message: 'No git binary found in $PATH',
-  code: 'ENOGIT'
+  code: 'ENOGIT',
 }
 
 const whichGit = require('../lib/which.js')
 t.equal(whichGit({ git: 'foo' }), 'foo')
-if (mungePath) { t.match(whichGit(), er) } else {
+if (mungePath) {
+  t.match(whichGit(), er)
+} else {
   const which = require('which')
   t.equal(whichGit(), which.sync('git'))
   t.match(whichGit({ git: false }), er)

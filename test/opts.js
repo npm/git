@@ -2,7 +2,7 @@ const t = require('tap')
 const gitOpts = require('../lib/opts.js')
 const gitEnv = {
   GIT_ASKPASS: 'echo',
-  GIT_SSH_COMMAND: 'ssh -oStrictHostKeyChecking=accept-new'
+  GIT_SSH_COMMAND: 'ssh -oStrictHostKeyChecking=accept-new',
 }
 
 t.match(gitOpts().env, gitEnv, 'got the git defaults we want')
@@ -20,7 +20,7 @@ t.test('does not override', t => {
   process.env.GIT_SSH_COMMAND = 'test_ssh_command'
   t.match(gitOpts().env, {
     GIT_ASKPASS: 'test_askpass',
-    GIT_SSH_COMMAND: 'test_ssh_command'
+    GIT_SSH_COMMAND: 'test_ssh_command',
   }, 'values already in process.env remain')
   t.end()
 })
@@ -29,17 +29,17 @@ t.test('as non-root', t => {
   process.getuid = () => 999
   t.match(gitOpts({
     foo: 'bar',
-    env: { override: 'for some reason' }
+    env: { override: 'for some reason' },
   }, {
     uid: 420,
     gid: 69,
-    abc: 'def'
+    abc: 'def',
   }), {
     foo: 'bar',
     env: { override: 'for some reason' },
     uid: undefined,
     gid: undefined,
-    abc: undefined
+    abc: undefined,
   }, 'do not set uid/gid as non-root')
   t.end()
 })

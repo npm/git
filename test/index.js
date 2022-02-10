@@ -7,6 +7,6 @@ t.match(git, {
   errors: {
     GitConnectionError: /GitConnectionError/,
     GitPathspecError: /GitPathspecError/,
-    GitUnknownError: /GitUnknownError/
-  }
+    GitUnknownError: /GitUnknownError/,
+  },
 })
