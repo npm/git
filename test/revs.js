@@ -54,7 +54,7 @@ t.test('setup', t =>
 t.test('point latest at HEAD', t =>
   revs(repo).then(r => t.same(r['dist-tags'], {
     HEAD: '69.42.0',
-    latest: '69.42.0'
+    latest: '69.42.0',
   })))
 
 t.test('add a latest branch, point to 1.2.3 version', t =>
@@ -70,46 +70,46 @@ const expect = {
     '1.2.3': {
       sha: shaRE,
       ref: 'version-1.2.3',
-      type: 'tag'
-    }
+      type: 'tag',
+    },
   },
   'dist-tags': {
     latest: '1.2.3',
-    HEAD: '69.42.0'
+    HEAD: '69.42.0',
   },
   refs: {
     latest: {
       sha: shaRE,
       ref: 'latest',
-      type: 'branch'
+      type: 'branch',
     },
     [mainBranch]: {
       sha: shaRE,
       ref: mainBranch,
-      type: 'branch'
+      type: 'branch',
     },
     '699007199254740992.0.0': {
       sha: shaRE,
       ref: '699007199254740992.0.0',
-      type: 'tag'
+      type: 'tag',
     },
     asdf: {
       sha: shaRE,
       ref: 'asdf',
-      type: 'tag'
+      type: 'tag',
     },
     quux: {
       sha: shaRE,
       ref: 'quux',
-      type: 'tag'
+      type: 'tag',
     },
     'version-1.2.3': {
       sha: shaRE,
       ref: 'version-1.2.3',
-      type: 'tag'
-    }
+      type: 'tag',
+    },
   },
-  shas: Object
+  shas: Object,
 }
 
 t.test('check the revs', t =>

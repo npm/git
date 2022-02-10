@@ -19,7 +19,7 @@ const me = t.testdir({
   'submodule-repo': {},
   repo: {},
   [regularRepoDir]: {},
-  'replacement-repo': {}
+  'replacement-repo': {},
 })
 const remote = `git://localhost:${port}/repo`
 const submodsRemote = `git://localhost:${port}/submodule-repo`
@@ -84,7 +84,7 @@ t.test('spawn daemon', { bail: true }, t => {
     '--informative-errors',
     '--reuseaddr',
     '--base-path=.',
-    '--listen=localhost'
+    '--listen=localhost',
   ], { cwd: me, stdio: ['pipe', 1, 'pipe'] })
   const onDaemonData = c => {
     // prepare to slay the daemon
@@ -164,7 +164,7 @@ const refs = [
   'refs/rando/file',
   'pull/1',
   '699007199254740992.0.0^^',
-  'semver:1.x'
+  'semver:1.x',
 ]
 
 const npa = require('npm-package-arg')
@@ -248,20 +248,24 @@ t.test('cloning to regular folder', t =>
 t.test('cloning to folder with spaces', t =>
   clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces)
     .then(() => revs(regularRepo))
-    .then((r) => revs(clonedRepoSpaces).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+    .then((r) =>
+      revs(clonedRepoSpaces).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
 )
 
 if ((process.platform) === 'win32') {
   t.test('cloning to folder with spaces with cmd as the shell on windows', t =>
     clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { shell: 'cmd' })
       .then(() => revs(regularRepo))
-      .then((r) => revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+      .then((r) =>
+        revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
   )
 } else {
   t.test('cloning to folder with spaces with cmd as the shell not on windows', t =>
-    clone(join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { fakePlatform: 'win32', shell: 'cmd' })
+    clone(
+      join(regularRepo, '.git'), 'HEAD', clonedRepoSpaces2, { fakePlatform: 'win32', shell: 'cmd' })
       .then(() => revs(regularRepo))
-      .then((r) => revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
+      .then((r) =>
+        revs(clonedRepoSpaces2).then((r2) => t.same(Object.keys(r.shas), Object.keys(r2.shas))))
   )
 }
 
@@ -296,7 +300,7 @@ t.test('avoid having replacements break the world', { saveFixture: false }, asyn
     const path = t.testdir() + '/noreplace'
     await clone(replacementRemote, 'HEAD^^', path)
     t.throws(() => fs.statSync(resolve(path, 'replacement-file')), {
-      code: 'ENOENT'
+      code: 'ENOENT',
     }, 'should not have file from replacement commit')
   })
   t.test('get the replaced thing if allowReplace:true', async t => {
