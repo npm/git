@@ -235,6 +235,8 @@ t.test('setup aditional tests', t => {
   const git = (...cmd) => spawnGit(cmd, { cwd: regularRepo })
   const write = (f, c) => fs.writeFileSync(`${regularRepo}/${f}`, c)
   return git('init', '-b', 'main')
+    .then(() => git('config', 'user.name', 'pacotedev'))
+    .then(() => git('config', 'user.email', 'i+pacotedev@izs.me'))
     .then(() => write('foo', 'bar'))
     .then(() => git('add', 'foo'))
     .then(() => git('commit', '-m', 'foobar'))
