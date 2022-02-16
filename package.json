@@ -33,7 +33,7 @@
   "devDependencies": {
     "@npmcli/template-oss": "^2.7.1",
     "slash": "^3.0.0",
-    "standard": "^16.0.3",
+    "standard": "^16.0.4",
     "tap": "^15.1.6"
   },
   "dependencies": {
