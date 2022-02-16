@@ -1,5 +1,4 @@
 const spawn = require('../lib/spawn.js')
-const procLog = require('../lib/proc-log.js')
 const errors = require('../lib/errors.js')
 
 const t = require('tap')
@@ -81,7 +80,6 @@ process.exit(1)
       cwd: repo,
       git: process.execPath,
       allowReplace: true,
-      log: procLog,
       ...(retryOptions[n]),
     }), er).then(() => {
       t.same(logs, [
@@ -121,7 +119,6 @@ process.exit(1)
     cwd: repo,
     git: process.execPath,
     allowReplace: true,
-    log: procLog,
   }), er)
   t.end()
 })
@@ -146,7 +143,6 @@ process.exit(1)
     cwd: repo,
     git: process.execPath,
     allowReplace: true,
-    log: procLog,
   }), er)
   t.end()
 })
