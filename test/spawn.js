@@ -5,7 +5,7 @@ const errors = require('../lib/errors.js')
 const t = require('tap')
 t.rejects(spawn(['status'], { git: false }), {
   message: 'No git binary found in $PATH',
-  code: 'ENOGIT'
+  code: 'ENOGIT',
 })
 
 const slash = require('slash')
@@ -28,13 +28,13 @@ t.test('argument test for allowReplace', async t => {
   // for our purposes.  This just tests that the argument is added
   // by default.
   const spawn = t.mock('../lib/spawn.js', {
-    '@npmcli/promise-spawn': async (exe, args, opts) => args
+    '@npmcli/promise-spawn': async (exe, args, opts) => args,
   })
   const [allow, deny, allowWithArg, denyWithArg] = await Promise.all([
     spawn(['a', 'b', 'c'], { allowReplace: true }),
     spawn(['a', 'b', 'c']),
     spawn(['--no-replace-objects', 'a', 'b', 'c'], { allowReplace: true }),
-    spawn(['--no-replace-objects', 'a', 'b', 'c'])
+    spawn(['--no-replace-objects', 'a', 'b', 'c']),
   ])
   t.same(allow, ['a', 'b', 'c'], 'replacements allowed')
   t.same(deny, ['--no-replace-objects', 'a', 'b', 'c'], 'replacements not allowed')
@@ -57,15 +57,15 @@ process.exit(1)
         retries: 2,
         factor: 1,
         maxTimeout: 1000,
-        minTimeout: 1
-      }
+        minTimeout: 1,
+      },
     },
     'namespaced fetchRetry* configs': {
       fetchRetries: 2,
       fetchRetryFactor: 1,
       fetchRetryMaxtimeout: 1000,
-      fetchRetryMintimeout: 1
-    }
+      fetchRetryMintimeout: 1,
+    },
   }
   const er = Object.assign(new errors.GitConnectionError(gitMessage), {
     cmd: process.execPath,
@@ -74,7 +74,7 @@ process.exit(1)
     signal: null,
     stdout: '',
     stderr: gitMessage,
-    message: 'A git connection error occurred'
+    message: 'A git connection error occurred',
   })
   Object.keys(retryOptions).forEach(n => t.test(n, t =>
     t.rejects(spawn([te], {
@@ -82,19 +82,19 @@ process.exit(1)
       git: process.execPath,
       allowReplace: true,
       log: procLog,
-      ...(retryOptions[n])
+      ...(retryOptions[n]),
     }), er).then(() => {
       t.same(logs, [
         [
           'silly',
           'git',
-          `Retrying git command: ${te} attempt # 2`
+          `Retrying git command: ${te} attempt # 2`,
         ],
         [
           'silly',
           'git',
-          `Retrying git command: ${te} attempt # 3`
-        ]
+          `Retrying git command: ${te} attempt # 3`,
+        ],
       ], 'got expected logs')
       logs.length = 0
     })))
@@ -115,13 +115,13 @@ process.exit(1)
     signal: null,
     stdout: '',
     stderr: gitMessage,
-    message: 'The git reference could not be found'
+    message: 'The git reference could not be found',
   })
   t.rejects(spawn([te], {
     cwd: repo,
     git: process.execPath,
     allowReplace: true,
-    log: procLog
+    log: procLog,
   }), er)
   t.end()
 })
@@ -140,13 +140,13 @@ process.exit(1)
     signal: null,
     stdout: '',
     stderr: gitMessage,
-    message: 'An unknown git error occurred'
+    message: 'An unknown git error occurred',
   })
   t.rejects(spawn([te], {
     cwd: repo,
     git: process.execPath,
     allowReplace: true,
-    log: procLog
+    log: procLog,
   }), er)
   t.end()
 })

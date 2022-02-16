@@ -4,7 +4,7 @@ const find = require('../lib/find.js')
 t.test('find the git dir many folders up', t => {
   const root = t.testdir({
     '.git': { index: 'hello' },
-    a: { b: { c: { d: { e: {} } } } }
+    a: { b: { c: { d: { e: {} } } } },
   })
   const path = `${root}/a/b/c/d/e`
   return t.resolveMatch(find({ cwd: path }), root)
@@ -12,7 +12,7 @@ t.test('find the git dir many folders up', t => {
 
 t.test('find the git dir at current level', t => {
   const cwd = t.testdir({
-    '.git': { index: 'hello' }
+    '.git': { index: 'hello' },
   })
   return t.resolveMatch(find({ cwd }), cwd)
 })
