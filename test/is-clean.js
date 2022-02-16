@@ -10,6 +10,8 @@ const write = (file, data) => writeFile(resolve(repo, file), data)
 
 t.test('create git repo', t =>
   spawn(['init'], { cwd: repo })
+    .then(() => spawn(['config', 'user.name', 'pacotedev'], { cwd: repo }))
+    .then(() => spawn(['config', 'user.email', 'i+pacotedev@izs.me'], { cwd: repo }))
     .then(() => write('hello', 'world')))
 
 t.test('dir is clean, just one unknown file', t =>

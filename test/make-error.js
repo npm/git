@@ -7,7 +7,8 @@ const makeError = (message) =>
   _makeError(Object.assign(new Error(), { stderr: message }))
 
 t.test('throw matching error for missing pathspec', (t) => {
-  const missingPathspec = makeError('error: pathspec \'foo\' did not match any file(s) known to git')
+  const missingPathspec =
+    makeError('error: pathspec \'foo\' did not match any file(s) known to git')
   t.ok(missingPathspec instanceof errors.GitPathspecError, 'error is a pathspec error')
 
   t.end()
