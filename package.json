@@ -37,7 +37,7 @@
     "tap": "^15.1.6"
   },
   "dependencies": {
-    "@npmcli/promise-spawn": "^1.3.2",
+    "@npmcli/promise-spawn": "^2.0.0",
     "lru-cache": "^7.4.0",
     "mkdirp": "^1.0.4",
     "npm-pick-manifest": "^7.0.0",
