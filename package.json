@@ -15,7 +15,6 @@
   "license": "ISC",
   "scripts": {
     "lint": "eslint '**/*.js'",
-    "lint:fix": "standard --fix",
     "postversion": "npm publish",
     "prepublishOnly": "git push origin --follow-tags",
     "preversion": "npm test",
@@ -33,7 +32,6 @@
   "devDependencies": {
     "@npmcli/template-oss": "^2.8.1",
     "slash": "^3.0.0",
-    "standard": "^16.0.4",
     "tap": "^15.1.6"
   },
   "dependencies": {
@@ -52,6 +50,6 @@
   },
   "templateOSS": {
     "windowsCI": false,
-    "version": "2.7.1"
+    "version": "2.8.1"
   }
 }
