@@ -30,7 +30,7 @@
     "coverage-map": "map.js"
   },
   "devDependencies": {
-    "@npmcli/template-oss": "^2.8.1",
+    "@npmcli/template-oss": "^2.9.2",
     "slash": "^3.0.0",
     "tap": "^15.1.6"
   },
