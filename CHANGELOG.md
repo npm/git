@@ -1,5 +1,15 @@
 # Changelog
 
+### [3.0.1](https://www.github.com/npm/git/compare/v3.0.0...v3.0.1) (2022-03-14)
+
+
+### Dependencies
+
+* update lru-cache requirement from ^7.3.1 to ^7.4.0 ([#50](https://www.github.com/npm/git/issues/50)) ([3beb9a2](https://www.github.com/npm/git/commit/3beb9a29d0aff7264a8a8a3073648b10cacff97c))
+* update lru-cache requirement from ^7.4.0 to ^7.4.1 ([#55](https://www.github.com/npm/git/issues/55)) ([17c1e8a](https://www.github.com/npm/git/commit/17c1e8aff482cd77470bb9abec1b165d3ee6f9b0))
+* update lru-cache requirement from ^7.4.1 to ^7.4.2 ([#56](https://www.github.com/npm/git/issues/56)) ([eeb67f4](https://www.github.com/npm/git/commit/eeb67f44eb777c1f917fb12241ee360478dd12de))
+* update lru-cache requirement from ^7.4.2 to ^7.4.4 ([#57](https://www.github.com/npm/git/issues/57)) ([24dff2f](https://www.github.com/npm/git/commit/24dff2f0f46e3e1844a8824403acb0061b61b8ca))
+
 ## [3.0.0](https://www.github.com/npm/git/compare/v2.1.0...v3.0.0) (2022-02-16)
 
 
