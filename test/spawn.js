@@ -26,14 +26,14 @@ t.test('argument test for allowReplace', async t => {
   // test/clone.js, since it covers the use case that is relevant
   // for our purposes.  This just tests that the argument is added
   // by default.
-  const spawn = t.mock('../lib/spawn.js', {
+  const mockedSpawn = t.mock('../lib/spawn.js', {
     '@npmcli/promise-spawn': async (exe, args, opts) => args,
   })
   const [allow, deny, allowWithArg, denyWithArg] = await Promise.all([
-    spawn(['a', 'b', 'c'], { allowReplace: true }),
-    spawn(['a', 'b', 'c']),
-    spawn(['--no-replace-objects', 'a', 'b', 'c'], { allowReplace: true }),
-    spawn(['--no-replace-objects', 'a', 'b', 'c']),
+    mockedSpawn(['a', 'b', 'c'], { allowReplace: true }),
+    mockedSpawn(['a', 'b', 'c']),
+    mockedSpawn(['--no-replace-objects', 'a', 'b', 'c'], { allowReplace: true }),
+    mockedSpawn(['--no-replace-objects', 'a', 'b', 'c']),
   ])
   t.same(allow, ['a', 'b', 'c'], 'replacements allowed')
   t.same(deny, ['--no-replace-objects', 'a', 'b', 'c'], 'replacements not allowed')
