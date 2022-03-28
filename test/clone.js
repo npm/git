@@ -103,9 +103,9 @@ t.test('spawn daemon', { bail: true }, t => {
 })
 
 t.test('create a repo with a submodule', { bail: true }, t => {
-  const repo = resolve(me, 'submodule-repo')
-  const git = (...cmd) => spawnGit(cmd, { cwd: repo })
-  const write = (f, c) => fs.writeFileSync(`${repo}/${f}`, c)
+  const submoduleRepo = resolve(me, 'submodule-repo')
+  const git = (...cmd) => spawnGit(cmd, { cwd: submoduleRepo })
+  const write = (f, c) => fs.writeFileSync(`${submoduleRepo}/${f}`, c)
   return git('init', '-b', 'main')
     .then(() => git('config', 'user.name', 'pacotedev'))
     .then(() => git('config', 'user.email', 'i+pacotedev@izs.me'))
