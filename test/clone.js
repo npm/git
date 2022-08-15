@@ -192,7 +192,7 @@ t.test('check every out', t => {
   }))
 })
 
-t.test('again, with a submodule', t => {
+t.test('again, with a submodule', async t => {
   t.jobs = 2
   t.plan(platforms.length)
   platforms.forEach(fakePlatform => t.test(`platform=${fakePlatform}`, t => {
@@ -201,7 +201,7 @@ t.test('again, with a submodule', t => {
     shallows.forEach(gitShallow => t.test(`shallow=${gitShallow}`, t => {
       t.jobs = 2
       t.plan(refs.length + 1)
-      refs.concat(submodsRepoSha).forEach(ref => t.test(`ref=${ref}`, t => {
+      refs.concat(submodsRepoSha).forEach(ref => t.test(`ref=${ref}`, async t => {
         const safeRef = `${ref}`.replace(/[^a-z0-9.]/g, '-')
         const name = `withsub-${fakePlatform}-${gitShallow}-${safeRef}`
         const cwd = resolve(me, name)
@@ -209,14 +209,11 @@ t.test('again, with a submodule', t => {
         const target = resolve(cwd, 'submodule-repo')
         const spec = ref === undefined ? undefined : npa(remote + (ref ? `#${ref}` : ''))
         const opts = { fakePlatform, gitShallow, cwd, spec }
-        return clone(submodsRemote, ref, undefined, opts)
-          .then(sha => t.match(sha, hashre, `got a sha for ref=${ref}`))
-          .then(() => {
-            const sub = resolve(target, 'fooblz')
-            t.ok(fs.statSync(sub).isDirectory(), 'sub is directory')
-            t.equal(fs.readFileSync(sub + '/gleep', 'utf8'), 'glorp',
-              'gleep file is glorpy')
-          })
+        const sha = await clone(submodsRemote, ref, undefined, opts)
+        t.match(sha, hashre, `got a sha for ref=${ref}`)
+        const sub = resolve(target, 'fooblz')
+        t.ok(fs.statSync(sub).isDirectory(), 'sub is directory')
+        t.equal(fs.readFileSync(sub + '/gleep', 'utf8'), 'glorp', 'gleep file is glorpy')
       }))
     }))
   }))

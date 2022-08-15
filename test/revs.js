@@ -112,10 +112,11 @@ const expect = {
   shas: Object,
 }
 
-t.test('check the revs', t =>
-  revs(repo, { noGitRevCache: true }).then(r => revs(repo).then(r2 => {
-    t.equal(r, r2)
-    t.match(r, expect)
-    Object.keys(r.shas).forEach(sha => r.shas[sha].forEach(ref =>
-      t.equal(r.refs[ref].sha, sha, `shas list is consistent ${ref}`)))
-  })))
+t.test('check the revs', async t => {
+  const r = await revs(repo, { noGitRevCache: true })
+  const r2 = await revs(repo)
+  t.equal(r, r2)
+  t.match(r, expect)
+  Object.keys(r.shas).forEach(sha => r.shas[sha].forEach(ref =>
+    t.equal(r.refs[ref].sha, sha, `shas list is consistent ${ref}`)))
+})
