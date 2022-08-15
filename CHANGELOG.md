@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.2](https://github.com/npm/git/compare/v3.0.1...v3.0.2) (2022-08-15)
+
+
+### Bug Fixes
+
+* linting ([ea31a17](https://github.com/npm/git/commit/ea31a176d41f5355ef85a624028acfe57c1e650e))
+
 ### [3.0.1](https://github.com/npm/git/compare/v3.0.0...v3.0.1) (2022-04-05)
 
 
