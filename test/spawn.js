@@ -75,27 +75,27 @@ process.exit(1)
     stderr: gitMessage,
     message: 'A git connection error occurred',
   })
-  Object.keys(retryOptions).forEach(n => t.test(n, t =>
-    t.rejects(spawn([te], {
+  Object.keys(retryOptions).forEach(n => t.test(n, async t => {
+    await t.rejects(spawn([te], {
       cwd: repo,
       git: process.execPath,
       allowReplace: true,
       ...(retryOptions[n]),
-    }), er).then(() => {
-      t.same(logs, [
-        [
-          'silly',
-          'git',
-          `Retrying git command: ${te} attempt # 2`,
-        ],
-        [
-          'silly',
-          'git',
-          `Retrying git command: ${te} attempt # 3`,
-        ],
-      ], 'got expected logs')
-      logs.length = 0
-    })))
+    }), er)
+    t.same(logs, [
+      [
+        'silly',
+        'git',
+        `Retrying git command: ${te} attempt # 2`,
+      ],
+      [
+        'silly',
+        'git',
+        `Retrying git command: ${te} attempt # 3`,
+      ],
+    ], 'got expected logs')
+    logs.length = 0
+  }))
   t.end()
 })
 
