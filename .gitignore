@@ -19,8 +19,10 @@
 !/.github/
 !/.gitignore
 !/.npmrc
+!/.release-please-manifest.json
 !/CODE_OF_CONDUCT.md
 !/SECURITY.md
 !/bin/
 !/lib/
 !/package.json
+!/release-please-config.json

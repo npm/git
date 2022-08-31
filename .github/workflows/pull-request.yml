@@ -28,9 +28,8 @@ jobs:
       - name: Update npm to latest
         run: npm i --prefer-online --no-fund --no-audit -g npm@latest
       - run: npm -v
-      - name: Install deps
-        run: npm i -D @commitlint/cli @commitlint/config-conventional
-      - name: Check commits OR PR title
+      - run: npm i --ignore-scripts --no-audit --no-fund
+      - name: Check commits or PR title
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
