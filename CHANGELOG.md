@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.0.0](https://github.com/npm/git/compare/v3.0.2...v4.0.0) (2022-10-14)
+
+### ⚠️ BREAKING CHANGES
+
+* `@npmcli/git` is now compatible with the following semver range for node: `^14.17.0 || ^16.13.0 || >=18.0.0`
+
+### Features
+
+* [`84d1268`](https://github.com/npm/git/commit/84d12684685fbb071b62c3e84f44107fc11e5ec0) [#85](https://github.com/npm/git/pull/85) postinstall for dependabot template-oss PR (@lukekarrys)
+
+### Dependencies
+
+* [`49d794d`](https://github.com/npm/git/commit/49d794d9f09c54c10a0f0e2e54ebc174d7392533) [#93](https://github.com/npm/git/pull/93) bump proc-log from 2.0.1 to 3.0.0
+
 ## [3.0.2](https://github.com/npm/git/compare/v3.0.1...v3.0.2) (2022-08-15)
 
 
