@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/npm/git/compare/v4.0.0...v4.0.1) (2022-10-17)
+
+### Dependencies
+
+* [`4eff9fe`](https://github.com/npm/git/commit/4eff9fef5977d853e0da7ee8b2213f7ec873dd6c) [#94](https://github.com/npm/git/pull/94) bump @npmcli/promise-spawn from 3.0.0 to 4.0.0 (#94)
+* [`496d1cb`](https://github.com/npm/git/commit/496d1cb9c51e03035fce77958745c59d5fd74350) [#96](https://github.com/npm/git/pull/96) bump npm-pick-manifest from 7.0.2 to 8.0.0 (#96)
+
 ## [4.0.0](https://github.com/npm/git/compare/v3.0.2...v4.0.0) (2022-10-14)
 
 ### ⚠️ BREAKING CHANGES
