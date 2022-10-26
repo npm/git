@@ -44,7 +44,7 @@ t.test('argument test for allowReplace', async t => {
 t.test('retries', t => {
   const logs = []
   process.on('log', (...log) => logs.push(log))
-  const gitMessage = 'Connection timed out\n'
+  const gitMessage = 'Connection timed out'
   const te = resolve(repo, 'transient-error.js')
   fs.writeFileSync(te, `
 console.error('${gitMessage.trim()}')
@@ -100,7 +100,7 @@ process.exit(1)
 })
 
 t.test('missing pathspec', t => {
-  const gitMessage = 'error: pathspec \'foo\' did not match any file(s) known to git\n'
+  const gitMessage = 'error: pathspec \'foo\' did not match any file(s) known to git'
   const te = resolve(repo, 'pathspec-error.js')
   fs.writeFileSync(te, `
 console.error("${gitMessage.trim()}")
@@ -124,7 +124,7 @@ process.exit(1)
 })
 
 t.test('unknown git error', t => {
-  const gitMessage = 'error: something really bad happened to git\n'
+  const gitMessage = 'error: something really bad happened to git'
   const te = resolve(repo, 'unknown-error.js')
   fs.writeFileSync(te, `
 console.error("${gitMessage.trim()}")
