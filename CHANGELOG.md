@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.3](https://github.com/npm/git/compare/v4.0.2...v4.0.3) (2022-11-01)
+
+### Dependencies
+
+* [`1d9ca2a`](https://github.com/npm/git/commit/1d9ca2a31141ea4b423967b3858dba2c2578b554) [#105](https://github.com/npm/git/pull/105) bump @npmcli/promise-spawn from 5.0.0 to 6.0.0 (#105)
+* [`1103697`](https://github.com/npm/git/commit/11036976ce086230197bb63eccc902b80d7e6a7d) [#104](https://github.com/npm/git/pull/104) bump which from 2.0.2 to 3.0.0 (#104)
+
 ## [4.0.2](https://github.com/npm/git/compare/v4.0.1...v4.0.2) (2022-10-26)
 
 ### Dependencies
