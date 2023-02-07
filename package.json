@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@npmcli/eslint-config": "^4.0.0",
-    "@npmcli/template-oss": "4.11.3",
+    "@npmcli/template-oss": "4.11.4",
     "npm-package-arg": "^10.0.0",
     "rimraf": "^3.0.2",
     "slash": "^3.0.0",
