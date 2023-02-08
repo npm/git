@@ -4,9 +4,7 @@ const revs = require('../lib/revs.js')
 const t = require('tap')
 const fs = require('fs')
 const { spawn } = require('child_process')
-const rimraf = require('rimraf')
 const { resolve, join } = require('path')
-const mkdirp = require('mkdirp')
 
 // keep the fixture, because Windows fails when it tries to delete it,
 // due to all the git operations happening inside.
@@ -99,7 +97,7 @@ t.test('spawn daemon', { bail: true }, t => {
   }
   daemon.stderr.on('data', onDaemonData)
   // only clean up the dir once the daemon is banished
-  daemon.on('close', () => rimraf.sync(me))
+  daemon.on('close', () => fs.rmSync(me, { recursive: true, force: true }))
 })
 
 t.test('create a repo with a submodule', { bail: true }, t => {
@@ -205,7 +203,7 @@ t.test('again, with a submodule', async t => {
         const safeRef = `${ref}`.replace(/[^a-z0-9.]/g, '-')
         const name = `withsub-${fakePlatform}-${gitShallow}-${safeRef}`
         const cwd = resolve(me, name)
-        mkdirp.sync(cwd)
+        fs.mkdirSync(cwd, { recursive: true })
         const target = resolve(cwd, 'submodule-repo')
         const spec = ref === undefined ? undefined : npa(remote + (ref ? `#${ref}` : ''))
         const opts = { fakePlatform, gitShallow, cwd, spec }
