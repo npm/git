@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.0.4](https://github.com/npm/git/compare/v4.0.3...v4.0.4) (2023-03-08)
+
+### Dependencies
+
+* [`1095bed`](https://github.com/npm/git/commit/1095bed420065fb2e04577b627b1d8d7622c7fe3) [#118](https://github.com/npm/git/pull/118) remove mkdirp and rimraf (#118)
+
 ## [4.0.3](https://github.com/npm/git/compare/v4.0.2...v4.0.3) (2022-11-01)
 
 ### Dependencies
