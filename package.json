@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@npmcli/promise-spawn": "^6.0.0",
-    "lru-cache": "^7.4.4",
+    "lru-cache": "^9.1.1",
     "npm-pick-manifest": "^8.0.0",
     "proc-log": "^3.0.0",
     "promise-inflight": "^1.0.1",
