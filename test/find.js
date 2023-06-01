@@ -1,4 +1,5 @@
 const t = require('tap')
+const { join } = require('path')
 const find = require('../lib/find.js')
 
 t.test('find the git dir many folders up', t => {
@@ -8,6 +9,24 @@ t.test('find the git dir many folders up', t => {
   })
   const path = `${root}/a/b/c/d/e`
   return t.resolveMatch(find({ cwd: path }), root)
+})
+
+t.test('stop before root dir', t => {
+  const root = t.testdir({
+    '.git': { index: 'hello' },
+    a: { b: { c: { d: { e: {} } } } },
+  })
+  const path = `${root}/a/b/c/d/e`
+  return t.resolveMatch(find({ cwd: path, root: join(root, 'a') }), null)
+})
+
+t.test('stop at root dir', t => {
+  const root = t.testdir({
+    '.git': { index: 'hello' },
+    a: { b: { c: { d: { e: {} } } } },
+  })
+  const path = `${root}/a/b/c/d/e`
+  return t.resolveMatch(find({ cwd: path, root }), root)
 })
 
 t.test('find the git dir at current level', t => {
