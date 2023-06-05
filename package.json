@@ -23,7 +23,7 @@
     "template-oss-apply": "template-oss-apply --force"
   },
   "tap": {
-    "check-coverage": true,
+    "timeout": 600,
     "coverage-map": "map.js",
     "nyc-arg": [
       "--exclude",
@@ -52,7 +52,6 @@
   },
   "templateOSS": {
     "//@npmcli/template-oss": "This file is partially managed by @npmcli/template-oss. Edits may be overwritten.",
-    "windowsCI": false,
     "version": "4.15.1"
   }
 }
