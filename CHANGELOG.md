@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.1.0](https://github.com/npm/git/compare/v4.0.4...v4.1.0) (2023-06-06)
+
+### Features
+
+* [`f73ed8d`](https://github.com/npm/git/commit/f73ed8dee9811a00a52073ff50544c8e3d907952) [#135](https://github.com/npm/git/pull/135) add option to stop git.find at a directory (#135) (@lukekarrys)
+
+### Bug Fixes
+
+* [`d5a99e3`](https://github.com/npm/git/commit/d5a99e3f58a433dfd04d9d389dab50ca947b1085) [#137](https://github.com/npm/git/pull/137) dont default `find` `root` option to anything (@lukekarrys)
+
 ## [4.0.4](https://github.com/npm/git/compare/v4.0.3...v4.0.4) (2023-03-08)
 
 ### Dependencies
