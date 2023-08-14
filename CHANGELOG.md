@@ -1,5 +1,20 @@
 # Changelog
 
+## [5.0.0](https://github.com/npm/git/compare/v4.1.0...v5.0.0) (2023-08-14)
+
+### ⚠️ BREAKING CHANGES
+
+* support for node 14 has been removed
+
+### Bug Fixes
+
+* [`a85584b`](https://github.com/npm/git/commit/a85584bd368e723b278cf6c81d8d25f9f89a7a2d) [#143](https://github.com/npm/git/pull/143) drop node14 support (@lukekarrys)
+* [`9ec690b`](https://github.com/npm/git/commit/9ec690b2b454fc1dbc90428ea187ca974fb86217) [#143](https://github.com/npm/git/pull/143) use lru-cache named export (@lukekarrys)
+
+### Dependencies
+
+* [`9e5902f`](https://github.com/npm/git/commit/9e5902f0f0989118c814923bfcf9b08a10487523) [#143](https://github.com/npm/git/pull/143) bump lru-cache from 7.18.3 to 10.0.1
+
 ## [4.1.0](https://github.com/npm/git/compare/v4.0.4...v4.1.0) (2023-06-06)
 
 ### Features
