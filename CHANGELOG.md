@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.0.1](https://github.com/npm/git/compare/v5.0.0...v5.0.1) (2023-08-15)
+
+### Dependencies
+
+* [`25fb1d1`](https://github.com/npm/git/commit/25fb1d1ae9fcbc35b0b86dffb5ca70f89ad6611b) [#146](https://github.com/npm/git/pull/146) bump npm-pick-manifest from 8.0.2 to 9.0.0
+
 ## [5.0.0](https://github.com/npm/git/compare/v4.1.0...v5.0.0) (2023-08-14)
 
 ### ⚠️ BREAKING CHANGES
