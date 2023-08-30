@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.0.3](https://github.com/npm/git/compare/v5.0.2...v5.0.3) (2023-08-30)
+
+### Dependencies
+
+* [`5d5a6ed`](https://github.com/npm/git/commit/5d5a6edee92ef09efa11c750d7168a60357c5104) [#150](https://github.com/npm/git/pull/150) bump @npmcli/promise-spawn from 6.0.2 to 7.0.0
+
 ## [5.0.2](https://github.com/npm/git/compare/v5.0.1...v5.0.2) (2023-08-30)
 
 ### Dependencies
