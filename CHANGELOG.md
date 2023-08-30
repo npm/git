@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.0.2](https://github.com/npm/git/compare/v5.0.1...v5.0.2) (2023-08-30)
+
+### Dependencies
+
+* [`9df0371`](https://github.com/npm/git/commit/9df03715ed40cb22fd61a8525a83f3e29b11898d) [#148](https://github.com/npm/git/pull/148) bump which from 3.0.1 to 4.0.0
+
 ## [5.0.1](https://github.com/npm/git/compare/v5.0.0...v5.0.1) (2023-08-15)
 
 ### Dependencies
