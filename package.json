@@ -14,7 +14,7 @@
   "author": "GitHub Inc.",
   "license": "ISC",
   "scripts": {
-    "lint": "eslint \"**/*.js\"",
+    "lint": "eslint \"**/*.{js,cjs,ts,mjs,jsx,tsx}\"",
     "snap": "tap",
     "test": "tap",
     "posttest": "npm run lint",
@@ -51,7 +51,7 @@
   },
   "templateOSS": {
     "//@npmcli/template-oss": "This file is partially managed by @npmcli/template-oss. Edits may be overwritten.",
-    "version": "4.19.0",
+    "version": "4.21.1",
     "publish": true
   }
 }
