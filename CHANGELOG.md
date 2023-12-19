@@ -1,5 +1,22 @@
 # Changelog
 
+## [5.0.4](https://github.com/npm/git/compare/v5.0.3...v5.0.4) (2023-12-19)
+
+### Bug Fixes
+
+* [`c398872`](https://github.com/npm/git/commit/c3988721734281bb793d85db3dcbe8cacae59961) [#176](https://github.com/npm/git/pull/176) lazy load of which module (#176) (@thecodrr)
+
+### Chores
+
+* [`46192f5`](https://github.com/npm/git/commit/46192f559efa8b9ee2eed2132b7e143c10af1d1d) [#175](https://github.com/npm/git/pull/175) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`51011f8`](https://github.com/npm/git/commit/51011f8440b20a80502e35861e1adc5bdb33cdfc) [#175](https://github.com/npm/git/pull/175) bump @npmcli/template-oss from 4.21.1 to 4.21.3 (@dependabot[bot])
+* [`8b1d897`](https://github.com/npm/git/commit/8b1d8971c9ee58becdbc0c272fb257dd1b9899d5) [#173](https://github.com/npm/git/pull/173) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`157ed48`](https://github.com/npm/git/commit/157ed4845c5f85af4a8a9a5fbed4b72c0bd4eca0) [#173](https://github.com/npm/git/pull/173) bump @npmcli/template-oss from 4.19.0 to 4.21.1 (@dependabot[bot])
+* [`0d06a9f`](https://github.com/npm/git/commit/0d06a9f92bd2382333943e1f764a118336399736) [#154](https://github.com/npm/git/pull/154) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`b425d28`](https://github.com/npm/git/commit/b425d28218e6ceae4a81f371a8f651c1671b4259) [#154](https://github.com/npm/git/pull/154) bump @npmcli/template-oss from 4.18.1 to 4.19.0 (@dependabot[bot])
+* [`ecc938a`](https://github.com/npm/git/commit/ecc938aaf3923951813b13ef9665a9bdf55a9cab) [#152](https://github.com/npm/git/pull/152) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`72430ad`](https://github.com/npm/git/commit/72430ad21e8b9e3dbbd0bb518d42a7bd6b26fed9) [#152](https://github.com/npm/git/pull/152) bump @npmcli/template-oss from 4.18.0 to 4.18.1 (@dependabot[bot])
+
 ## [5.0.3](https://github.com/npm/git/compare/v5.0.2...v5.0.3) (2023-08-30)
 
 ### Dependencies
