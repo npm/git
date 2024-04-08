@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.0.5](https://github.com/npm/git/compare/v5.0.4...v5.0.5) (2024-04-08)
+
+### Bug Fixes
+
+* [`d9bf355`](https://github.com/npm/git/commit/d9bf355a35b4d11b86b64bec8f748ddba088a926) [#180](https://github.com/npm/git/pull/180) use fs/promises instead of util.promisify (#180) (@lukekarrys)
+
 ## [5.0.4](https://github.com/npm/git/compare/v5.0.3...v5.0.4) (2023-12-19)
 
 ### Bug Fixes
