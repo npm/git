@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.0.6](https://github.com/npm/git/compare/v5.0.5...v5.0.6) (2024-04-12)
+
+### Dependencies
+
+* [`683deed`](https://github.com/npm/git/commit/683deedadcc6359cc1aa8c18adbd22542fd7860e) [#182](https://github.com/npm/git/pull/182) `proc-log@4.0.0` (#182)
+
 ## [5.0.5](https://github.com/npm/git/compare/v5.0.4...v5.0.5) (2024-04-08)
 
 ### Bug Fixes
