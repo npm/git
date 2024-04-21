@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.7](https://github.com/npm/git/compare/v5.0.6...v5.0.7) (2024-04-21)
+
+### Chores
+
+* [`aa89740`](https://github.com/npm/git/commit/aa89740b87a7383bcf3920d14d88e022597f2f0d) [#184](https://github.com/npm/git/pull/184) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`b7ab170`](https://github.com/npm/git/commit/b7ab17047e52a514af10688ae8611aaca96be696) [#184](https://github.com/npm/git/pull/184) bump @npmcli/template-oss from 4.21.3 to 4.21.4 (@dependabot[bot])
+
 ## [5.0.6](https://github.com/npm/git/compare/v5.0.5...v5.0.6) (2024-04-12)
 
 ### Dependencies
