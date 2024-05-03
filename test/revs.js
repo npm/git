@@ -25,7 +25,7 @@ const fixMainBranch = (err) => {
   return git('init')
 }
 const write = (f, c) => fs.writeFileSync(`${repo}/${f}`, c)
-t.test('setup', t =>
+t.test('setup', () =>
   git('init', '-b', mainBranch).catch(fixMainBranch)
     .then(() => git('config', 'user.name', 'pacotedev'))
     .then(() => git('config', 'user.email', 'i+pacotedev@izs.me'))
@@ -57,7 +57,7 @@ t.test('point latest at HEAD', t =>
     latest: '69.42.0',
   })))
 
-t.test('add a latest branch, point to 1.2.3 version', t =>
+t.test('add a latest branch, point to 1.2.3 version', () =>
   git('checkout', '-b', 'latest')
     .then(() => git('reset', '--hard', 'version-1.2.3'))
     .then(() => git('checkout', mainBranch))

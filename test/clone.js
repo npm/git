@@ -28,7 +28,7 @@ let repoSha = ''
 let submodsRepoSha = ''
 
 t.setTimeout(120000)
-t.test('create repo', { bail: true }, t => {
+t.test('create repo', { bail: true }, () => {
   const git = (...cmd) => spawnGit(cmd, { cwd: repo })
   const write = (f, c) => fs.writeFileSync(`${repo}/${f}`, c)
   return git('init', '-b', 'main')
@@ -100,7 +100,7 @@ t.test('spawn daemon', { bail: true }, t => {
   daemon.on('close', () => fs.rmSync(me, { recursive: true, force: true }))
 })
 
-t.test('create a repo with a submodule', { bail: true }, t => {
+t.test('create a repo with a submodule', { bail: true }, () => {
   const submoduleRepo = resolve(me, 'submodule-repo')
   const git = (...cmd) => spawnGit(cmd, { cwd: submoduleRepo })
   const write = (f, c) => fs.writeFileSync(`${submoduleRepo}/${f}`, c)
@@ -226,7 +226,7 @@ const clonedRepo = join(me, clonedRepoDir)
 const clonedRepoSpaces = join(me, clonedSpacesRepoDir)
 const clonedRepoSpaces2 = join(me, clonedSpacesRepoDir2)
 
-t.test('setup aditional tests', t => {
+t.test('setup aditional tests', () => {
   const git = (...cmd) => spawnGit(cmd, { cwd: regularRepo })
   const write = (f, c) => fs.writeFileSync(`${regularRepo}/${f}`, c)
   return git('init', '-b', 'main')
