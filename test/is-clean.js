@@ -8,7 +8,7 @@ const { promisify } = require('util')
 const writeFile = promisify(require('fs').writeFile)
 const write = (file, data) => writeFile(resolve(repo, file), data)
 
-t.test('create git repo', t =>
+t.test('create git repo', () =>
   spawn(['init'], { cwd: repo })
     .then(() => spawn(['config', 'user.name', 'pacotedev'], { cwd: repo }))
     .then(() => spawn(['config', 'user.email', 'i+pacotedev@izs.me'], { cwd: repo }))

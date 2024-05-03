@@ -27,7 +27,7 @@ t.test('argument test for allowReplace', async t => {
   // for our purposes.  This just tests that the argument is added
   // by default.
   const mockedSpawn = t.mock('../lib/spawn.js', {
-    '@npmcli/promise-spawn': async (exe, args, opts) => args,
+    '@npmcli/promise-spawn': async (exe, args) => args,
   })
   const [allow, deny, allowWithArg, denyWithArg] = await Promise.all([
     mockedSpawn(['a', 'b', 'c'], { allowReplace: true }),
