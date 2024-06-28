@@ -1,4 +1,5 @@
 const t = require('tap')
+const ini = require('ini')
 let [GIT_ASKPASS, GIT_SSH_COMMAND] = ['', '']
 
 const mockFs = {
@@ -11,7 +12,6 @@ const gitOpts = t.mock('../lib/opts.js', {
 })
 
 t.beforeEach(() => {
-  gitOpts._resetCachedConfig()
   backupEnv()
 })
 
@@ -112,6 +112,44 @@ t.test('does not override when sshCommand is set in git config', t => {
   askpass = echo
   sshCommand = custom_ssh_command
 `
+  const gitOptsWithMockFs = t.mock('../lib/opts.js', {
+    'node:fs': {
+      ...mockFs,
+      existsSync: () => true,
+      readFileSync: () => gitConfigContent,
+    },
+  })
+
+  t.match(gitOptsWithMockFs(), {
+    env: {
+      GIT_ASKPASS: null,
+      GIT_SSH_COMMAND: null,
+    },
+    shell: false,
+  }, 'sshCommand in git config remains')
+
+  t.end()
+})
+
+t.test('does not override when sshCommand is set in git config', t => {
+  const gitConfigContent = `[core]
+  askpass = echo
+  sshCommand = custom_ssh_command
+`
+
+  const { loadGitConfig } = t.mock('../lib/opts.js', {
+    'node:fs': {
+      ...mockFs,
+      existsSync: () => true,
+      readFileSync: () => gitConfigContent,
+    },
+  })
+
+  t.match(loadGitConfig(),
+    ini.parse(gitConfigContent),
+    'cachedConfig should be populated with git config'
+  )
+
   const gitOptsWithMockFs = t.mock('../lib/opts.js', {
     'node:fs': {
       ...mockFs,
