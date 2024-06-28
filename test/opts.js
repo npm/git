@@ -1,49 +1,38 @@
 const t = require('tap')
-const proxyquire = require('proxyquire')
-const gitOpts = require('../lib/opts.js')
-const fs = require('node:fs')
-const os = require('node:os')
-const path = require('node:path')
-
-const gitConfigPath = path.join(os.homedir(), '.gitconfig')
+let [GIT_ASKPASS, GIT_SSH_COMMAND] = ['', '']
 
 const mockFs = {
   existsSync: () => false,
   readFileSync: () => '',
 }
 
-// Utility function to backup and restore gitconfig
-const backupGitConfig = () => {
-  const backupPath = `${gitConfigPath}.backup`
-  if (fs.existsSync(gitConfigPath)) {
-    fs.copyFileSync(gitConfigPath, backupPath)
-    fs.unlinkSync(gitConfigPath)
-  }
-  return backupPath
-}
+const gitOpts = t.mock('../lib/opts.js', {
+  'node:fs': mockFs,
+})
 
-const restoreGitConfig = (backupPath) => {
-  if (fs.existsSync(backupPath)) {
-    fs.copyFileSync(backupPath, gitConfigPath)
-    fs.unlinkSync(backupPath)
-  } else if (fs.existsSync(gitConfigPath)) {
-    fs.unlinkSync(gitConfigPath)
-  }
-}
+t.beforeEach(() => {
+  gitOpts._resetCachedConfig()
+  backupEnv()
+})
 
-const writeGitConfig = (content) => {
-  fs.writeFileSync(gitConfigPath, content)
-}
+t.afterEach(() => {
+  restoreEnv()
+})
+
+t.test('defaults', t => {
+  t.match(gitOpts(), {
+    env: {
+      GIT_ASKPASS: 'echo',
+      GIT_SSH_COMMAND: 'ssh -oStrictHostKeyChecking=accept-new',
+    },
+    shell: false,
+  }, 'got the git defaults we want')
+
+  t.end()
+})
 
 t.test('handle case when fs.existsSync throws an error', t => {
-  const { GIT_ASKPASS, GIT_SSH_COMMAND } = process.env
-  t.teardown(() => {
-    process.env.GIT_ASKPASS = GIT_ASKPASS
-    process.env.GIT_SSH_COMMAND = GIT_SSH_COMMAND
-  })
-
-  // Mocking fs.existsSync to throw an error
-  const gitOptsWithMockFs = proxyquire('../lib/opts.js', {
+  const gitOptsWithMockFs = t.mock('../lib/opts.js', {
     'node:fs': {
       ...mockFs,
       existsSync: () => {
@@ -63,38 +52,26 @@ t.test('handle case when fs.existsSync throws an error', t => {
   t.end()
 })
 
-t.test('defaults', t => {
-  const backupPath = backupGitConfig()
-  const { GIT_ASKPASS, GIT_SSH_COMMAND } = process.env
-  t.teardown(() => {
-    restoreGitConfig(backupPath)
-    process.env.GIT_ASKPASS = GIT_ASKPASS
-    process.env.GIT_SSH_COMMAND = GIT_SSH_COMMAND
+t.test('handle case when git config does not exist', t => {
+  const gitOptsWithMockFs = t.mock('../lib/opts.js', {
+    'node:fs': {
+      ...mockFs,
+      existsSync: () => false,
+    },
   })
 
-  delete process.env.GIT_ASKPASS
-  delete process.env.GIT_SSH_COMMAND
-
-  t.match(gitOpts(), {
+  t.match(gitOptsWithMockFs(), {
     env: {
       GIT_ASKPASS: 'echo',
       GIT_SSH_COMMAND: 'ssh -oStrictHostKeyChecking=accept-new',
     },
     shell: false,
-  }, 'got the git defaults we want')
+  }, 'should apply defaults when git config does not exist')
 
   t.end()
 })
 
 t.test('does not override when sshCommand is set in env', t => {
-  const backupPath = backupGitConfig()
-  const { GIT_ASKPASS, GIT_SSH_COMMAND } = process.env
-  t.teardown(() => {
-    restoreGitConfig(backupPath)
-    process.env.GIT_ASKPASS = GIT_ASKPASS
-    process.env.GIT_SSH_COMMAND = GIT_SSH_COMMAND
-  })
-
   process.env.GIT_ASKPASS = 'test_askpass'
   process.env.GIT_SSH_COMMAND = 'test_ssh_command'
 
@@ -110,14 +87,6 @@ t.test('does not override when sshCommand is set in env', t => {
 })
 
 t.test('as non-root', t => {
-  const backupPath = backupGitConfig()
-  const { GIT_ASKPASS, GIT_SSH_COMMAND } = process.env
-  t.teardown(() => {
-    restoreGitConfig(backupPath)
-    process.env.GIT_ASKPASS = GIT_ASKPASS
-    process.env.GIT_SSH_COMMAND = GIT_SSH_COMMAND
-  })
-
   process.getuid = () => 999
 
   t.match(gitOpts({
@@ -139,27 +108,37 @@ t.test('as non-root', t => {
 })
 
 t.test('does not override when sshCommand is set in git config', t => {
-  const backupPath = backupGitConfig()
-  const { GIT_ASKPASS, GIT_SSH_COMMAND } = process.env
-  t.teardown(() => {
-    restoreGitConfig(backupPath)
-    process.env.GIT_ASKPASS = GIT_ASKPASS
-    process.env.GIT_SSH_COMMAND = GIT_SSH_COMMAND
-  })
-
-  writeGitConfig(`
-[core]
+  const gitConfigContent = `[core]
   askpass = echo
   sshCommand = custom_ssh_command
-`)
+`
+  const gitOptsWithMockFs = t.mock('../lib/opts.js', {
+    'node:fs': {
+      ...mockFs,
+      existsSync: () => true,
+      readFileSync: () => gitConfigContent,
+    },
+  })
 
-  t.match(gitOpts(), {
+  t.match(gitOptsWithMockFs(), {
     env: {
-      GIT_ASKPASS: 'undefined',
-      GIT_SSH_COMMAND: 'undefined',
+      GIT_ASKPASS: null,
+      GIT_SSH_COMMAND: null,
     },
     shell: false,
   }, 'sshCommand in git config remains')
 
   t.end()
 })
+
+function backupEnv () {
+  GIT_ASKPASS = process.env.GIT_ASKPASS
+  GIT_SSH_COMMAND = process.env.GIT_SSH_COMMAND
+  delete process.env.GIT_ASKPASS
+  delete process.env.GIT_SSH_COMMAND
+}
+
+function restoreEnv () {
+  process.env.GIT_ASKPASS = GIT_ASKPASS
+  process.env.GIT_SSH_COMMAND = GIT_SSH_COMMAND
+}
