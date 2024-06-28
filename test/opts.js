@@ -1,9 +1,9 @@
 const t = require('tap')
 const proxyquire = require('proxyquire')
 const gitOpts = require('../lib/opts.js')
-const fs = require('fs')
-const os = require('os')
-const path = require('path')
+const fs = require('node:fs')
+const os = require('node:os')
+const path = require('node:path')
 
 const gitConfigPath = path.join(os.homedir(), '.gitconfig')
 
@@ -44,7 +44,7 @@ t.test('handle case when fs.existsSync throws an error', t => {
 
   // Mocking fs.existsSync to throw an error
   const gitOptsWithMockFs = proxyquire('../lib/opts.js', {
-    fs: {
+    'node:fs': {
       ...mockFs,
       existsSync: () => {
         throw new Error('Mocked error')
