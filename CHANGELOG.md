@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.0.8](https://github.com/npm/git/compare/v5.0.7...v5.0.8) (2024-07-09)
+
+### Bug Fixes
+
+* [`2135513`](https://github.com/npm/git/commit/21355134c1a7077eea507611892393888edf2fb7) [#194](https://github.com/npm/git/pull/194) smarter git ssh override (#194) (@dennishenry, pacotedev)
+
 ## [5.0.7](https://github.com/npm/git/compare/v5.0.6...v5.0.7) (2024-05-04)
 
 ### Bug Fixes
