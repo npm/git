@@ -35,7 +35,7 @@
     "@npmcli/template-oss": "4.23.3",
     "npm-package-arg": "^11.0.0",
     "slash": "^3.0.0",
-    "tap": "^16.0.1"
+    "tap": "^21.0.1"
   },
   "dependencies": {
     "@npmcli/promise-spawn": "^7.0.0",
