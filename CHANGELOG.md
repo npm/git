@@ -1,5 +1,20 @@
 # Changelog
 
+## [6.0.0](https://github.com/npm/git/compare/v5.0.8...v6.0.0) (2024-09-26)
+### ⚠️ BREAKING CHANGES
+* `@npmcli/git` now supports node `^18.17.0 || >=20.5.0`
+### Bug Fixes
+* [`a405d65`](https://github.com/npm/git/commit/a405d65abfef7652648468ae6fa43eb7f8a7ad96) [#211](https://github.com/npm/git/pull/211) align to npm 10 node engine range (@reggi)
+### Dependencies
+* [`68c31f0`](https://github.com/npm/git/commit/68c31f0d5396c5db2fa961e5f0e609f2f943a58b) [#211](https://github.com/npm/git/pull/211) `proc-log@5.0.0`
+* [`917a535`](https://github.com/npm/git/commit/917a5356d8b63167c0fefd331441cfc1988aab56) [#211](https://github.com/npm/git/pull/211) `ini@5.0.0`
+* [`e192bea`](https://github.com/npm/git/commit/e192beafc7ac2997ebc4d1bc0d2763f03421a8a7) [#211](https://github.com/npm/git/pull/211) `@npmcli/promise-spawn@8.0.0`
+### Chores
+* [`e989fa1`](https://github.com/npm/git/commit/e989fa1f53d998c4eca0d74c718c284cf7b3bdcb) [#211](https://github.com/npm/git/pull/211) run template-oss-apply (@reggi)
+* [`dbfdd90`](https://github.com/npm/git/commit/dbfdd90965cde5e334ab9639ea6e881bbf096678) [#205](https://github.com/npm/git/pull/205) bump @npmcli/eslint-config from 4.0.5 to 5.0.0 (@dependabot[bot])
+* [`4d33150`](https://github.com/npm/git/commit/4d3315033d077da5a7433f2af7ea006010301a1e) [#206](https://github.com/npm/git/pull/206) postinstall for dependabot template-oss PR (@hashtagchris)
+* [`8c699c1`](https://github.com/npm/git/commit/8c699c13df9e1867e6931dadfacd2bc90c50c555) [#206](https://github.com/npm/git/pull/206) bump @npmcli/template-oss from 4.23.1 to 4.23.3 (@dependabot[bot])
+
 ## [5.0.8](https://github.com/npm/git/compare/v5.0.7...v5.0.8) (2024-07-09)
 
 ### Bug Fixes
