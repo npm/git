@@ -46,7 +46,7 @@
     "promise-inflight": "^1.0.1",
     "promise-retry": "^2.0.1",
     "semver": "^7.3.5",
-    "which": "^4.0.0"
+    "which": "^5.0.0"
   },
   "engines": {
     "node": "^18.17.0 || >=20.5.0"
