@@ -1,5 +1,10 @@
 # Changelog
 
+## [6.0.1](https://github.com/npm/git/compare/v6.0.0...v6.0.1) (2024-10-02)
+### Dependencies
+* [`a4c2c21`](https://github.com/npm/git/commit/a4c2c21c74c9c0c9d73a9ea857ad8cedc47879cc) [#216](https://github.com/npm/git/pull/216) bump `which@5.0.0`
+* [`3bbfa2c`](https://github.com/npm/git/commit/3bbfa2c769fb4c3beb118eab4f93c42aef1ccbaf) [#216](https://github.com/npm/git/pull/216) bump `npm-pick-manifest@10.0.0`
+
 ## [6.0.0](https://github.com/npm/git/compare/v5.0.8...v6.0.0) (2024-09-26)
 ### ⚠️ BREAKING CHANGES
 * `@npmcli/git` now supports node `^18.17.0 || >=20.5.0`
