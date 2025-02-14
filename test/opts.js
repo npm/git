@@ -7,12 +7,13 @@ const mockFs = {
   readFileSync: () => '',
 }
 
-const gitOpts = t.mock('../lib/opts.js', {
-  'node:fs': mockFs,
-})
+let gitOpts
 
 t.beforeEach(() => {
   backupEnv()
+  gitOpts = t.mock('../lib/opts.js', {
+    'node:fs': mockFs,
+  })
 })
 
 t.afterEach(() => {
