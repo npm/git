@@ -120,3 +120,28 @@ t.test('check the revs', async t => {
   Object.keys(r.shas).forEach(sha => r.shas[sha].forEach(ref =>
     t.equal(r.refs[ref].sha, sha, `shas list is consistent ${ref}`)))
 })
+
+t.test('cache prevents repeated git ls-remote calls', async t => {
+  let callCount = 0
+  const originalSpawn = require('../lib/spawn.js')
+
+  // Mock `spawn` to track calls
+  require.cache[require.resolve('../lib/spawn.js')].exports = (...args) => {
+    callCount++
+    return originalSpawn(...args)
+  }
+
+  // Force reloading revs.js after modifying spawn
+  delete require.cache[require.resolve('../lib/revs.js')]
+  const revsModule = require('../lib/revs.js')
+
+  await revsModule(repo) // First call should hit `git ls-remote`
+  await revsModule(repo) // Second call should use cache
+
+  t.equal(callCount, 1, 'git ls-remote should be called only once due to caching')
+
+  // Restore original spawn.js
+  t.teardown(() => {
+    require.cache[require.resolve('../lib/spawn.js')].exports = originalSpawn
+  })
+})
