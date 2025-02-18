@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.0.2](https://github.com/npm/git/compare/v6.0.1...v6.0.2) (2025-02-18)
+### Dependencies
+* [`618c70c`](https://github.com/npm/git/commit/618c70cedcde3cbf2a01863df5f9467658a48352) [#223](https://github.com/npm/git/pull/223) remove promise-inflight (#223)
+### Chores
+* [`29dfb33`](https://github.com/npm/git/commit/29dfb3324ab0b06f28b94971d6d8719853b20bf6) [#222](https://github.com/npm/git/pull/222) ensure tests correctly mock environment variables before loading opts.js (#222) (@owlstronaut)
+* [`0fc4208`](https://github.com/npm/git/commit/0fc4208897ed29c0651f17d8e7593827110d1ea7) [#220](https://github.com/npm/git/pull/220) bump npm-package-arg from 11.0.3 to 12.0.1 (#220) (@dependabot[bot])
+* [`52d8b0e`](https://github.com/npm/git/commit/52d8b0efc675574b5c0dbec7932b921b97f1f453) [#221](https://github.com/npm/git/pull/221) bump @npmcli/template-oss from 4.23.3 to 4.24.1 (#221) (@dependabot[bot], @npm-cli-bot)
+
 ## [6.0.1](https://github.com/npm/git/compare/v6.0.0...v6.0.1) (2024-10-02)
 ### Dependencies
 * [`a4c2c21`](https://github.com/npm/git/commit/a4c2c21c74c9c0c9d73a9ea857ad8cedc47879cc) [#216](https://github.com/npm/git/pull/216) bump `which@5.0.0`
