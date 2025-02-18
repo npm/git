@@ -1,5 +1,9 @@
 # Changelog
 
+## [6.0.3](https://github.com/npm/git/compare/v6.0.2...v6.0.3) (2025-02-18)
+### Dependencies
+* [`4d688db`](https://github.com/npm/git/commit/4d688db7f82adcb4281eca07c4e63b9de3085500) [#225](https://github.com/npm/git/pull/225) remove promise-inflight (#225)
+
 ## [6.0.2](https://github.com/npm/git/compare/v6.0.1...v6.0.2) (2025-02-18)
 ### Dependencies
 * [`618c70c`](https://github.com/npm/git/commit/618c70cedcde3cbf2a01863df5f9467658a48352) [#223](https://github.com/npm/git/pull/223) remove promise-inflight (#223)
