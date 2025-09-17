@@ -33,7 +33,7 @@
   "devDependencies": {
     "@npmcli/eslint-config": "^5.0.0",
     "@npmcli/template-oss": "4.24.1",
-    "npm-package-arg": "^12.0.1",
+    "npm-package-arg": "^13.0.0",
     "slash": "^3.0.0",
     "tap": "^16.0.1"
   },
