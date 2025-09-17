@@ -40,7 +40,7 @@
   "dependencies": {
     "@npmcli/promise-spawn": "^8.0.0",
     "ini": "^5.0.0",
-    "lru-cache": "^10.0.1",
+    "lru-cache": "^11.2.1",
     "npm-pick-manifest": "^10.0.0",
     "proc-log": "^5.0.0",
     "promise-retry": "^2.0.1",
