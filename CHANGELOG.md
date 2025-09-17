@@ -1,5 +1,16 @@
 # Changelog
 
+## [7.0.0](https://github.com/npm/git/compare/v6.0.3...v7.0.0) (2025-09-17)
+### ⚠️ BREAKING CHANGES
+* `@npmcli/git` now supports node `^20.17.0 || >=22.9.0`
+### Bug Fixes
+* [`586a99b`](https://github.com/npm/git/commit/586a99bf966c6f5a65eb3cbee4b648e94a115493) [#227](https://github.com/npm/git/pull/227) align to npm 11 node engine range (@owlstronaut)
+### Dependencies
+* [`836bcd0`](https://github.com/npm/git/commit/836bcd0e0af4403deca4fe55531518eb1676a953) [#227](https://github.com/npm/git/pull/227) `npm-pick-manifest@11.0.1`
+* [`3dfd4a7`](https://github.com/npm/git/commit/3dfd4a71fc7909fd516c5b70ff98f93185902796) [#227](https://github.com/npm/git/pull/227) `lru-cache@11.2.1`
+### Chores
+* [`7c14300`](https://github.com/npm/git/commit/7c14300a754c36d24273d9b60882d2d895e38ac9) [#227](https://github.com/npm/git/pull/227) `npm-package-arg@13.0.0` (@owlstronaut)
+
 ## [6.0.3](https://github.com/npm/git/compare/v6.0.2...v6.0.3) (2025-02-18)
 ### Dependencies
 * [`4d688db`](https://github.com/npm/git/commit/4d688db7f82adcb4281eca07c4e63b9de3085500) [#225](https://github.com/npm/git/pull/225) remove promise-inflight (#225)
