@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.0.1](https://github.com/npm/git/compare/v7.0.0...v7.0.1) (2025-11-13)
+### Dependencies
+* [`68705a9`](https://github.com/npm/git/commit/68705a90c609d37d759e7292a59d4e9134cded70) [#229](https://github.com/npm/git/pull/229) `which@6.0.0`
+* [`317b3c9`](https://github.com/npm/git/commit/317b3c9647843b3947c6116ffd5b2e5f9f6b5d57) [#229](https://github.com/npm/git/pull/229) `@npmcli/promise-spawn@9.0.0`
+* [`76bf30d`](https://github.com/npm/git/commit/76bf30dbf5ce8c8f39fbc878c56835694cbe04dd) [#229](https://github.com/npm/git/pull/229) `ini@6.0.0`
+* [`935a4d0`](https://github.com/npm/git/commit/935a4d090ed4bcda1e1802f1623b32144a7d8570) [#229](https://github.com/npm/git/pull/229) `proc-log@6.0.0`
+
 ## [7.0.0](https://github.com/npm/git/compare/v6.0.3...v7.0.0) (2025-09-17)
 ### ⚠️ BREAKING CHANGES
 * `@npmcli/git` now supports node `^20.17.0 || >=22.9.0`
