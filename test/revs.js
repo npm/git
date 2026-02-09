@@ -64,7 +64,7 @@ t.test('add a latest branch, point to 1.2.3 version', () =>
 )
 
 // sharing is caring
-const shaRE = /^[0-9a-f]{40}$/
+const shaRE = /^[0-9a-f]{40,64}$/
 const expect = {
   versions: {
     '1.2.3': {

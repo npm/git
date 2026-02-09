@@ -166,7 +166,7 @@ const refs = [
 ]
 
 const npa = require('npm-package-arg')
-const hashre = /^[a-f0-9]{40}$/
+const hashre = /^[a-f0-9]{40,64}$/
 
 t.test('check every out', t => {
   t.jobs = 2
