@@ -17,7 +17,8 @@ const first = [
 
 const second = [
   '90add9eed16ee6bff5869c006b7245946d881fea\tHEAD',
-  'd249e847bfb67c5bc436447a323731ff70d2a7e5\trefs/heads/latest',
+  // sha-256 rev
+  '8e3a9b3579ab330238c06b761e7f1b5dc5b4ac6e5a96da4dd2fb3b7411009df8\trefs/heads/latest',
   '90add9eed16ee6bff5869c006b7245946d881fea\trefs/heads/master',
   '1111111111111111111111111111111111111111\trefs/pull/1/head',
   '2222222222222222222222222222222222222222\trefs/pull/1/merge',
@@ -26,20 +27,20 @@ const second = [
   'fc6d0a2c3aaccf4cba5aebe38c963b934942b34f\trefs/tags/69.42.0',
   '90add9eed16ee6bff5869c006b7245946d881fea\trefs/tags/69.42.0^{}',
   'b9ad1935ceee7c9bdfc4851743fd7994cf6838a6\trefs/tags/699007199254740992.0.0',
-  'd249e847bfb67c5bc436447a323731ff70d2a7e5\trefs/tags/699007199254740992.0.0^{}',
+  '8e3a9b3579ab330238c06b761e7f1b5dc5b4ac6e5a96da4dd2fb3b7411009df8\trefs/tags/699007199254740992.0.0^{}',
   '4f0de9d26f02f67d77227bf4fcf10ec1549756b0\trefs/tags/asdf',
   '0000000000000000000000000000000000000000\t',
   'fc13b8fcdb7b036bdcdf76c8926033e2f1592362\trefs/tags/asdf^{}',
   '6a8378f1a56a1bb73e6f505194b2611b657efc69\trefs/tags/quux',
   '8c04f438e8f34620f056c7ef4f667ae4b14e55d4\trefs/tags/quux^{}',
   '574ed18efe056281a48bb97d4994d6ca2a00b9fb\trefs/tags/version-1.2.3',
-  'd249e847bfb67c5bc436447a323731ff70d2a7e5\trefs/tags/version-1.2.3^{}',
+  '8e3a9b3579ab330238c06b761e7f1b5dc5b4ac6e5a96da4dd2fb3b7411009df8\trefs/tags/version-1.2.3^{}',
 ]
 
 const t = require('tap')
 
 // sharing is caring
-const shaRE = /^[0-9a-f]{40}$/
+const shaRE = /^[0-9a-f]{40,64}$/
 const expect = {
   versions: {
     '1.2.3': {
