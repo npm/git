@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.0.2](https://github.com/npm/git/compare/v7.0.1...v7.0.2) (2026-02-24)
+### Dependencies
+* [`8c1340b`](https://github.com/npm/git/commit/8c1340b2eeb984f33ae8fef7805898a59d93868a) add `@gar/promise-retry@1.0.0`
+* [`111c54d`](https://github.com/npm/git/commit/111c54dddbd248a07beadbf0a817f3726343217d) remove promise-retry
+### Chores
+* [`696bea5`](https://github.com/npm/git/commit/696bea5c1330f91b293c79ebe52f1358085bff79) [#233](https://github.com/npm/git/pull/233) explicit sha-1 and sha-256 git committish tests (#233) (@wraithgar)
+
 ## [7.0.1](https://github.com/npm/git/compare/v7.0.0...v7.0.1) (2025-11-13)
 ### Dependencies
 * [`68705a9`](https://github.com/npm/git/commit/68705a90c609d37d759e7292a59d4e9134cded70) [#229](https://github.com/npm/git/pull/229) `which@6.0.0`
