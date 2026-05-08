@@ -43,7 +43,7 @@
     "ini": "^6.0.0",
     "lru-cache": "^11.2.1",
     "npm-pick-manifest": "^11.0.1",
-    "proc-log": "^6.0.0",
+    "proc-log": "^7.0.0",
     "semver": "^7.3.5",
     "which": "^6.0.0"
   },
