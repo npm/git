@@ -45,7 +45,7 @@
     "npm-pick-manifest": "^11.0.1",
     "proc-log": "^6.0.0",
     "semver": "^7.3.5",
-    "which": "^6.0.0"
+    "which": "^7.0.0"
   },
   "engines": {
     "node": "^20.17.0 || >=22.9.0"
