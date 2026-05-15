@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@gar/promise-retry": "^1.0.0",
-    "@npmcli/promise-spawn": "^9.0.0",
+    "@npmcli/promise-spawn": "^10.0.0",
     "ini": "^6.0.0",
     "lru-cache": "^11.2.1",
     "npm-pick-manifest": "^11.0.1",
