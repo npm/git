@@ -1,5 +1,27 @@
 # Changelog
 
+## [8.0.0](https://github.com/npm/git/compare/v7.0.2...v8.0.0) (2026-05-19)
+### ⚠️ BREAKING CHANGES
+* `@npmcli/git` now supports node `^22.22.2 || ^24.15.0 || >=26.0.0`
+* template-oss-apply
+### Features
+* [`fae7acc`](https://github.com/npm/git/commit/fae7acc245b79ae32ed451852d4b16635f0f2852) [#248](https://github.com/npm/git/pull/248) bump to new node engine range (@owlstronaut)
+* [`d842a25`](https://github.com/npm/git/commit/d842a25df066cbde6bc0e0e6e782a1ac173ac9af) [#248](https://github.com/npm/git/pull/248) template-oss-apply (@owlstronaut)
+### Dependencies
+* [`189abf4`](https://github.com/npm/git/commit/189abf4d1c757adb22169e6860a50a4a4ca4a014) [#248](https://github.com/npm/git/pull/248) `which@7.0.0`
+* [`0b2e392`](https://github.com/npm/git/commit/0b2e392c79cbf95f270c5c8d26a52c5fef792efd) [#248](https://github.com/npm/git/pull/248) `proc-log@7.0.0`
+* [`9458382`](https://github.com/npm/git/commit/94583821c4bd3074c491b9b16ded52c0eda4df16) [#248](https://github.com/npm/git/pull/248) `npm-pick-manifest@12.0.0`
+* [`e242dda`](https://github.com/npm/git/commit/e242dda41e07ea71ce4dd1e8ba58275c60ad07a6) [#248](https://github.com/npm/git/pull/248) `ini@7.0.0`
+* [`a5ae5fb`](https://github.com/npm/git/commit/a5ae5fb55ebf3b0f9bd3bda8f8122ccbae9226a2) [#248](https://github.com/npm/git/pull/248) `@npmcli/promise-spawn@10.0.0`
+### Chores
+* [`fafc3c1`](https://github.com/npm/git/commit/fafc3c1d68d3327ffad16f4e6b5cbe5f4cba8208) [#248](https://github.com/npm/git/pull/248) `@npmcli/eslint-config@7.0.0` (@owlstronaut)
+* [`0294624`](https://github.com/npm/git/commit/02946245e01873ca936990a200c5eef990044eef) [#248](https://github.com/npm/git/pull/248) `npm-package-arg@14.0.0` (@owlstronaut)
+* [`f2b814f`](https://github.com/npm/git/commit/f2b814f775736c5e8592ad96d13ebe569a1e14ed) [#248](https://github.com/npm/git/pull/248) template-oss-apply (@owlstronaut)
+* [`cd50fe0`](https://github.com/npm/git/commit/cd50fe0b7379f96165be9de60901c75f930d5a8e) [#248](https://github.com/npm/git/pull/248) bumping @npmcli/template-oss from 4.30.0 to 5.1.0 (@owlstronaut)
+* [`3ffe6f9`](https://github.com/npm/git/commit/3ffe6f94cd675631ebb7189197c8880fcb2d4af3) [#238](https://github.com/npm/git/pull/238) bump @npmcli/eslint-config from 5.1.0 to 6.0.1 (@dependabot[bot])
+* [`c5d249c`](https://github.com/npm/git/commit/c5d249cbe605f3125395c5562081df850deee881) [#239](https://github.com/npm/git/pull/239) template-oss-apply (@owlstronaut)
+* [`0f4e234`](https://github.com/npm/git/commit/0f4e23422e3e5142e1ce62a5c4d2b1cba7f05080) [#239](https://github.com/npm/git/pull/239) bump @npmcli/template-oss from 4.24.1 to 4.30.0 (@dependabot[bot])
+
 ## [7.0.2](https://github.com/npm/git/compare/v7.0.1...v7.0.2) (2026-02-24)
 ### Dependencies
 * [`8c1340b`](https://github.com/npm/git/commit/8c1340b2eeb984f33ae8fef7805898a59d93868a) add `@gar/promise-retry@1.0.0`
