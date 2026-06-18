@@ -24,7 +24,7 @@ t.test('defaults', t => {
   t.match(gitOpts(), {
     env: {
       GIT_ASKPASS: 'echo',
-      GIT_SSH_COMMAND: 'ssh -oStrictHostKeyChecking=accept-new',
+      GIT_SSH_COMMAND: 'ssh -o BatchMode=yes',
     },
     shell: false,
   }, 'got the git defaults we want')
@@ -45,7 +45,7 @@ t.test('handle case when fs.existsSync throws an error', t => {
   t.match(gitOptsWithMockFs(), {
     env: {
       GIT_ASKPASS: 'echo',
-      GIT_SSH_COMMAND: 'ssh -oStrictHostKeyChecking=accept-new',
+      GIT_SSH_COMMAND: 'ssh -o BatchMode=yes',
     },
     shell: false,
   }, 'should apply defaults when fs.existsSync throws an error')
@@ -64,7 +64,7 @@ t.test('handle case when git config does not exist', t => {
   t.match(gitOptsWithMockFs(), {
     env: {
       GIT_ASKPASS: 'echo',
-      GIT_SSH_COMMAND: 'ssh -oStrictHostKeyChecking=accept-new',
+      GIT_SSH_COMMAND: 'ssh -o BatchMode=yes',
     },
     shell: false,
   }, 'should apply defaults when git config does not exist')
