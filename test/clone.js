@@ -315,3 +315,38 @@ t.test('avoid having replacements break the world', { saveFixture: false }, asyn
       'replacement contents')
   })
 })
+
+t.test('fetch ref is not parsed as an option', async t => {
+  const sha = '1234567890abcdef1234567890abcdef12345678'
+  const headSha = 'abcdef1234567890abcdef1234567890abcdef12'
+  const rawRef = '--upload-pack=false'
+  const revDoc = { sha, ref: rawRef, rawRef, type: 'other' }
+  const mockedRevs = {
+    refs: {
+      HEAD: { sha: headSha, ref: 'HEAD', rawRef: 'HEAD', type: 'head' },
+      [rawRef]: revDoc,
+    },
+    shas: {},
+  }
+  for (const gitShallow of [true, false]) {
+    await t.test(`shallow=${gitShallow}`, async t => {
+      const calls = []
+      const mockedClone = t.mock('../lib/clone.js', {
+        '../lib/revs.js': async () => mockedRevs,
+        '../lib/spawn.js': async (args) => {
+          calls.push(args)
+          return {}
+        },
+      })
+      const target = resolve(t.testdir(), 'target')
+      const result = await mockedClone(
+        'https://example.com/repo.git', rawRef, target, { gitShallow })
+      t.equal(result, sha, 'resolved with the rev sha')
+      const fetch = calls.find(args => args[0] === 'fetch')
+      t.strictSame(fetch, gitShallow
+        ? ['fetch', 'origin', '--depth=1', '--end-of-options', rawRef]
+        : ['fetch', 'origin', '--end-of-options', rawRef],
+      'fetch passes the ref after --end-of-options')
+    })
+  }
+})
